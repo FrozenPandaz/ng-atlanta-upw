@@ -38,14 +38,10 @@
       ],
       "index": "index.html",
       "main": "main.server.ts",
-      "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.server.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "fbs",
-      "styles": [
-        "styles.css"
-      ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -82,7 +78,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "component": {}
   }
 }
