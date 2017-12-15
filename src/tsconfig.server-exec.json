@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.server.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "outDir": "../server-exec",
+    "types": [
+      "node"
+    ]
+  },
+  "files": [
+    "./server.ts"
+  ]
+}
