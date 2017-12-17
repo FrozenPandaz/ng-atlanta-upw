@@ -1,5 +1,6 @@
 import { enableProdMode } from '@angular/core';
 import { ngExpressEngine } from '@nguniversal/express-engine';
+import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 import 'zone.js/dist/zone-node';
 
@@ -21,7 +22,10 @@ server.use(express.static(distPath, {
 }));
 
 server.engine('html', ngExpressEngine({
-  bootstrap: AppServerModuleNgFactory
+  bootstrap: AppServerModuleNgFactory,
+  providers: [
+    provideModuleMap(LAZY_MODULE_MAP)
+  ]
 }));
 
 server.get('*', (req, res) => {
