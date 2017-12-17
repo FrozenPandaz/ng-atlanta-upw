@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "dist-server/main.server.js",
+    "server-exec/server.js"
+  ]
+}
