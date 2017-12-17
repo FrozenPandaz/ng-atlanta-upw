@@ -1,6 +1,6 @@
 {
   "watch": [
-    "dist-server/main.server.js",
+    "dist-server/main.bundle.js",
     "server-exec/server.js"
   ]
 }
