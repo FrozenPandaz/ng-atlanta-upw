@@ -10,6 +10,5 @@ export class AppComponent implements OnInit {
   title = 'fbs';
 
   ngOnInit() {
-    console.log(`Let's get this party started`);
   }
 }

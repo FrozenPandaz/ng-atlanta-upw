@@ -7,8 +7,7 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
-    path: '',
-    pathMatch: 'full',
+    path: ':listName',
     loadChildren: './lander/lander.module#LanderModule'
   }
 ];

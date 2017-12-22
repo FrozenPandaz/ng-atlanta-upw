@@ -6,10 +6,13 @@ import 'zone.js/dist/zone-node';
 
 import * as path from 'path';
 import * as express from 'express';
+import { ListsController } from './api/lists.controller';
 
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../dist-server/main.bundle');
 
 const server = express();
+
+const listController = new ListsController();
 
 const root = path.resolve(__dirname, '..');
 const distPath = path.resolve(root, 'dist');
@@ -28,11 +31,23 @@ server.engine('html', ngExpressEngine({
   ]
 }));
 
-server.get('*', (req, res) => {
-  res.render(indexPath, {
-    req,
-    res
+const routes = [
+  '/:listName',
+  '/profile/:profile-slug'
+];
+
+routes.forEach((route) => {
+  server.get(route, (req, res) => {
+    res.render(indexPath, {
+      req,
+      res
+    });
   });
+});
+
+server.get('/api/list/:listName', async (req, res) => {
+  const list = await listController.getList(req.params.listName);
+  res.json(list);
 });
 
 server.listen(4300, (err) => {

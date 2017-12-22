@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
 import { HeaderModule } from './header/header.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FirebaseModule } from './firebase.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { HeaderModule } from './header/header.module';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    HeaderModule
+    HeaderModule,
+    HttpClientModule,
+    FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

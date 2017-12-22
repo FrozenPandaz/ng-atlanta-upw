@@ -1,3 +1,10 @@
 Lander works!
-
-<a [routerLink]="['profile', 'bill-gates']">1</a>
+<div *ngIf="list | async; let list">
+  <h1>{{ list.name }}</h1>
+  <p>{{ list.description }}</p>
+  <ol>
+    <li>
+      <a [routerLink]="['profile', 'bill-gates']">1</a>
+    </li>
+  </ol>
+</div>

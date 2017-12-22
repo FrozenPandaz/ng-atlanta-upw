@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LanderComponent } from './lander.component';
+import { ListResolver } from './list/list.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    component: LanderComponent
+    component: LanderComponent,
+    resolve: {
+      list: ListResolver
+    }
   }
 ];
 
