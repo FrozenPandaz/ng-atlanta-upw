@@ -1,3 +1,5 @@
-<form>
-  <label>name</label><input type="text">
+<form *ngIf="listFormGroup" [formGroup]="listFormGroup" (submit)="onSubmit($event)">
+  <label>Name: </label><input type="text" formControlName="name"><br>
+  <label>Description: </label><input type="text" formControlName="description"><br>
+  <input type="submit">
 </form>
