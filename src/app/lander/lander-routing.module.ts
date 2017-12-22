@@ -5,6 +5,10 @@ import { ListResolver } from './list/list.resolver';
 
 const routes: Routes = [
   {
+    path: 'edit',
+    loadChildren: './edit/edit.module#EditModule'
+  },
+  {
     path: '',
     component: LanderComponent,
     resolve: {
