@@ -4,8 +4,7 @@ import { EditComponent } from './edit.component';
 
 const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
+    path: ':listName',
     component: EditComponent
   }
 ];

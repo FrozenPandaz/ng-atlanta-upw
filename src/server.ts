@@ -33,7 +33,7 @@ server.engine('html', ngExpressEngine({
 
 const routes = [
   '/:listName',
-  '/:listName/edit',
+  '/edit/:listName',
   '/profile/:profile-slug'
 ];
 
