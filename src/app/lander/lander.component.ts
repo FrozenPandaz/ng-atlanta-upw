@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import { List } from './list/list';
 })
 export class LanderComponent implements OnInit {
 
-  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   public list: Observable<List> = this.activatedRoute.data.pipe(
     pluck('list')
