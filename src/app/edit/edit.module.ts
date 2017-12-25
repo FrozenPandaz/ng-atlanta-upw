@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { EditRoutingModule } from './edit-routing.module';
-import { EditComponent } from './edit.component';
+import { EditLanderComponent } from './edit-lander/edit-lander.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,9 @@ import { EditComponent } from './edit.component';
     ReactiveFormsModule,
     EditRoutingModule
   ],
-  declarations: [EditComponent]
+  declarations: [
+    EditLanderComponent,
+    EditProfileComponent
+  ]
 })
 export class EditModule { }

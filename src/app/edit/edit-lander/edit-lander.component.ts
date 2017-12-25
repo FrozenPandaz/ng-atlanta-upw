@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
 
-import { List } from '../lander/list/list';
+import { List } from '../../lander/list/list';
 
 @Component({
-  selector: 'fbs-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+  selector: 'fbs-edit-lander',
+  templateUrl: './edit-lander.component.html',
+  styleUrls: ['./edit-lander.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditComponent implements OnInit {
+export class EditLanderComponent implements OnInit {
 
   public listFormGroup: FormGroup;
 

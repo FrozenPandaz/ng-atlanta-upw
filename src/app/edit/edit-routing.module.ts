@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EditComponent } from './edit.component';
+import { EditLanderComponent } from './edit-lander/edit-lander.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
     path: ':listName',
-    component: EditComponent
+    component: EditLanderComponent
+  },
+  {
+    path: '/profile/:profileSlug',
+    component: EditProfileComponent
   }
 ];
 

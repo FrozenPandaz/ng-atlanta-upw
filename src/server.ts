@@ -34,7 +34,8 @@ server.engine('html', ngExpressEngine({
 const routes = [
   '/:listName',
   '/edit/:listName',
-  '/profile/:profile-slug'
+  '/profile/:profile-slug',
+  '/edit/profile/:profile-slug'
 ];
 
 routes.forEach((route) => {
