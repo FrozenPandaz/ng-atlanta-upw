@@ -9,7 +9,7 @@ const routes: Routes = [
     component: EditLanderComponent
   },
   {
-    path: '/profile/:profileSlug',
+    path: 'profile/:profileSlug',
     component: EditProfileComponent
   }
 ];

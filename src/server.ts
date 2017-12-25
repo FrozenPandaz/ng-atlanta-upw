@@ -6,13 +6,23 @@ import 'zone.js/dist/zone-node';
 
 import * as path from 'path';
 import * as express from 'express';
-import { ListsController } from './api/lists.controller';
-
+import { ListsController } from './api/lists/lists.controller';
+import { ProfilesController } from './api/profiles/profiles.controller';
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../dist-server/main.bundle');
 
 const server = express();
 
-const listController = new ListsController();
+import * as firebase from 'firebase';
+
+import 'firebase/firestore';
+import { environment } from './environments/environment';
+
+firebase.initializeApp(environment.firebaseConfig);
+
+const firestore: firebase.firestore.Firestore = firebase.firestore();
+
+const listController = new ListsController(firestore);
+const profileController = new ProfilesController(firestore);
 
 const root = path.resolve(__dirname, '..');
 const distPath = path.resolve(root, 'dist');
@@ -34,8 +44,8 @@ server.engine('html', ngExpressEngine({
 const routes = [
   '/:listName',
   '/edit/:listName',
-  '/profile/:profile-slug',
-  '/edit/profile/:profile-slug'
+  '/profile/:profileSlug',
+  '/edit/profile/:profileSlug'
 ];
 
 routes.forEach((route) => {
@@ -50,6 +60,11 @@ routes.forEach((route) => {
 server.get('/api/list/:listName', async (req, res) => {
   const list = await listController.getList(req.params.listName);
   res.json(list);
+});
+
+server.get('/api/profile/:profileSlug', async (req, res) => {
+  const profile = await profileController.getProfile(req.params.profileSlug);
+  res.json(profile);
 });
 
 server.listen(4300, (err) => {

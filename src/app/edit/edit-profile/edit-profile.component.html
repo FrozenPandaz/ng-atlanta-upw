@@ -1,3 +1,8 @@
-<p>
-  edit-profile works!
+<p *ngIf="!exists">
+  This profile does not exist, please create it
 </p>
+<form *ngIf="formGroup" [formGroup]="formGroup" (submit)="onSubmit($event)">
+  <label>Name: </label><input type="text" formControlName="name"><br>
+  <label>Bio: </label><input type="text" formControlName="bio"><br>
+  <input type="submit">
+</form>

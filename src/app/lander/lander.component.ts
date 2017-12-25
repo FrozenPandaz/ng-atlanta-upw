@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
+import { List } from './list/list';
 
 @Component({
   selector: 'fbs-lander',
@@ -15,7 +16,7 @@ export class LanderComponent implements OnInit {
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) { }
 
-  public list: Observable<any> = this.activatedRoute.data.pipe(
+  public list: Observable<List> = this.activatedRoute.data.pipe(
     pluck('list')
   );
 
