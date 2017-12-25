@@ -46,14 +46,17 @@ export class EditLanderComponent implements OnInit {
     const listRef = await this.firestore.collection('lists').doc(listName).ref.get();
 
     if (!listRef.exists) {
-      return;
+      this.listFormGroup = new FormGroup({
+        name: new FormControl(),
+        description: new FormControl()
+      });
+    } else {
+      const list: List = listRef.data() as List;
+      this.listFormGroup = new FormGroup({
+        name: new FormControl(list.name),
+        description: new FormControl(list.description)
+      });
     }
-
-    const list: List = listRef.data() as List;
-    this.listFormGroup = new FormGroup({
-      name: new FormControl(list.name),
-      description: new FormControl(list.description)
-    });
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
   }

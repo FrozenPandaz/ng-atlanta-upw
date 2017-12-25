@@ -67,6 +67,25 @@ server.get('/api/profile/:profileSlug', async (req, res) => {
   res.json(profile);
 });
 
+server.get('/api/reset', async (req, res) => {
+  // const deletedProfiles = [];
+  // const deletedLists = [];
+  // const profiles = await firestore.collection('profiles').get();
+  // profiles.forEach(profileRef => {
+  //   deletedProfiles.push(profileRef.data().name);
+  //   profileRef.ref.delete();
+  // });
+  // const lists = await firestore.collection('lists').get();
+  // lists.forEach(list => {
+  //   deletedProfiles.push(list.data().name);
+  //   list.ref.delete();
+  // });
+  res.json({
+    deletedLists,
+    deletedProfiles
+  });
+});
+
 server.listen(4300, (err) => {
   console.log('Server has started: http://localhost:4300');
 });
