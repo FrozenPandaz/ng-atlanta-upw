@@ -80,9 +80,25 @@ server.get('/api/reset', async (req, res) => {
   //   deletedProfiles.push(list.data().name);
   //   list.ref.delete();
   // });
+  // await firestore.collection('lists').doc('test-list')
+  //   .collection('members').add(
+  //     firestore.collection('profiles').doc('rey').path
+  //   );
+  // const members = await firestore
+  //   .collection('lists')
+  //   .doc('test-list')
+  //   .collection('members');
+  // const membersRef = await members.get();
+  // await members.add({
+  //   profile: firestore.collection('profiles').doc('rey')
+  // });
+  // membersRef.forEach(thing => {
+  //   console.log(thing.data());
+  // })
+  // console.log(member.data());
   res.json({
-    deletedLists,
-    deletedProfiles
+
+    // list: member.data()
   });
 });
 

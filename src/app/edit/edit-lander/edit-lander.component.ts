@@ -4,7 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
 
+import { map } from 'rxjs/operators';
+
 import { List } from '../../lander/list/list';
+import { Observable } from 'rxjs/Observable';
+import { Profile } from '../../profile/profile/profile';
 
 @Component({
   selector: 'fbs-edit-lander',
@@ -15,6 +19,8 @@ import { List } from '../../lander/list/list';
 export class EditLanderComponent implements OnInit {
 
   public listFormGroup: FormGroup;
+
+  public profiles: Observable<Profile[]> = this.firestore.collection('profiles').valueChanges() as Observable<Profile[]>;
 
   private listName: string;
 
@@ -31,6 +37,10 @@ export class EditLanderComponent implements OnInit {
 
     this.listName = this.activatedRoute.snapshot.params.listName;
     await this.getList(this.listName);
+  }
+
+  addProfile(profile: Profile) {
+    console.log(profile);
   }
 
   onSubmit(event: Event) {
