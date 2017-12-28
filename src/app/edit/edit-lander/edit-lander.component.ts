@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, PLATFORM_ID, Inject } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
-
-import { map } from 'rxjs/operators';
+import * as firebase from 'firebase';
+import { first, map, tap } from 'rxjs/operators';
 
 import { List } from '../../lander/list/list';
 import { Observable } from 'rxjs/Observable';
@@ -20,9 +20,12 @@ export class EditLanderComponent implements OnInit {
 
   public listFormGroup: FormGroup;
 
-  public profiles: Observable<Profile[]> = this.firestore.collection('profiles').valueChanges() as Observable<Profile[]>;
+  private listName: string = this.activatedRoute.snapshot.params.listName;
+  private listRef: AngularFirestoreDocument<List> = this.firestore.collection('lists').doc(this.listName);
 
-  private listName: string;
+  public profiles: Observable<firebase.firestore.DocumentData[]> = this.getProfiles();
+
+  public members: Observable<{ profile: firebase.firestore.DocumentReference }[]> = this.getMembers();
 
   constructor(
     private firestore: AngularFirestore,
@@ -35,18 +38,53 @@ export class EditLanderComponent implements OnInit {
       return;
     }
 
-    this.listName = this.activatedRoute.snapshot.params.listName;
     await this.getList(this.listName);
   }
 
-  addProfile(profile: Profile) {
-    console.log(profile);
+  async addProfile(profile: Profile) {
+    if (await this.memberExists(profile)) {
+      alert('Profile already exists');
+    } else {
+      const members = await this.listRef.collection('members').ref.get();
+      this.listRef.collection('members').add({
+        rank: members.size + 1,
+        profile: this.firestore.collection('profiles').doc(profile.id).ref
+      });
+    }
+  }
+
+  async removeMember(member: any) {
+    const membersSnapshot = await this.listRef
+      .collection<{ profile: firebase.firestore.DocumentReference }>('members').ref
+      .where('rank', '>=', member.rank).get();
+
+    membersSnapshot.docs.forEach((doc) => {
+      const data = doc.data();
+      if (data.rank === member.rank) {
+        doc.ref.delete();
+      } else {
+        doc.ref.update({
+          rank: data.rank - 1
+        });
+      }
+    });
+    membersSnapshot.docs[0].ref.delete();
+  }
+
+  private async memberExists(profile: Profile): Promise<boolean> {
+    const membersSnapshot = await this.listRef
+      .collection<{ profile: firebase.firestore.DocumentReference }>('members', ref => ref.orderBy('rank'))
+      .ref.get();
+    const index = membersSnapshot.docs.findIndex(doc => {
+      return doc.data().profile.id === profile.id;
+    });
+    return index > -1;
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
 
-    this.firestore.collection('lists').doc(this.listName).set({
+    this.listRef.set({
       name: this.listFormGroup.get('name').value,
       description: this.listFormGroup.get('description').value
     });
@@ -69,6 +107,17 @@ export class EditLanderComponent implements OnInit {
     }
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
+  }
+
+  private getMembers() {
+    return this.listRef
+      .collection<{ profile: firebase.firestore.DocumentReference }>('members', ref => ref.orderBy('rank'))
+      .valueChanges();
+  }
+
+  private getProfiles() {
+    return this.firestore.collection<Profile>('profiles')
+      .valueChanges();
   }
 
 }

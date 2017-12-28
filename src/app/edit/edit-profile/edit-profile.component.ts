@@ -40,7 +40,8 @@ export class EditProfileComponent implements OnInit {
 
     this.firestore.collection('profiles').doc(this.profileSlug).set({
       name: this.formGroup.get('name').value,
-      bio: this.formGroup.get('bio').value
+      bio: this.formGroup.get('bio').value,
+      id: this.profileSlug
     });
   }
 

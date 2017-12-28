@@ -1,9 +1,21 @@
 <form *ngIf="listFormGroup" [formGroup]="listFormGroup" (submit)="onSubmit($event)">
   <label>Name: </label><input type="text" formControlName="name"><br>
   <label>Description: </label><input type="text" formControlName="description"><br>
-  <div *ngFor="let profile of profiles | async">
-    <p>{{ profile.name }}</p>
-    <button (click)="addProfile(profile)">Add</button>
-  </div>
   <input type="submit">
 </form>
+<div class="profiles">
+  <h2>Profiles</h2>
+  <ul>
+    <li *ngFor="let profile of profiles | async">
+      {{ profile.name }} <button (click)="addProfile(profile)">Add</button>
+    </li>
+  </ul>
+</div>
+<div class="members">
+  <h2>Members</h2>
+  <ul>
+    <li *ngFor="let member of members | async">
+      {{ member.rank }}. {{ member.profile.id }} <button (click)="removeMember(member)">Remove</button>
+    </li>
+  </ul>
+</div>
