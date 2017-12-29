@@ -18,7 +18,8 @@ export class ListsController {
     result.members = await Promise.all(membersSnapshot.docs.map(async doc => {
       const item = doc.data();
       const profileSnapshot = await this.firestore.collection('profiles').doc(item.profile.id).get();
-      return profileSnapshot.data();
+      item.profile = profileSnapshot.data();
+      return item;
     }));
 
     return result;

@@ -2,8 +2,10 @@
   <h1>{{ list.name }}</h1>
   <p>{{ list.description }}</p>
   <ol>
-    <li>
-      <a [routerLink]="['/profile', 'rey']">Rey</a>
+    <li *ngFor="let member of list.members">
+      <a [routerLink]="['/profile', member.profile.id]">
+        {{ member.rank }}. {{ member.profile.name }}
+      </a>
     </li>
   </ol>
 </div>
