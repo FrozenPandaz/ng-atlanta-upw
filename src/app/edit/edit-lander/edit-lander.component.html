@@ -14,8 +14,11 @@
 <div class="members">
   <h2>Members</h2>
   <ul>
-    <li *ngFor="let member of members | async">
-      {{ member.rank }}. {{ member.profile.id }} <button (click)="removeMember(member)">Remove</button>
+    <li *ngFor="let member of members | async; let first = first; let last = last;">
+      {{ member.rank }}. {{ member.profile.id }}
+      <button (click)="removeMember(member)">Remove</button>
+      <button *ngIf="!first" (click)="shiftMember(member, 'up')">Up</button>
+      <button *ngIf="!last" (click)="shiftMember(member, 'down')">Down</button>
     </li>
   </ul>
 </div>

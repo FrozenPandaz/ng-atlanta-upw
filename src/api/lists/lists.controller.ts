@@ -5,10 +5,22 @@ export class ListsController {
   constructor(private firestore: firebase.firestore.Firestore) {}
 
   async getList(name: string): Promise<any> {
-    const snapshot = await this.firestore.collection('lists').doc(name).get();
-    if (!snapshot.exists) {
+    const listRef = this.firestore.collection('lists').doc(name);
+    const listSnapshot = await listRef.get();
+    if (!listSnapshot.exists) {
       return {};
     }
-    return snapshot.data();
+
+    const result = listSnapshot.data();
+    result.members = [];
+
+    const membersSnapshot = await listRef.collection('members').orderBy('rank').get();
+    result.members = await Promise.all(membersSnapshot.docs.map(async doc => {
+      const item = doc.data();
+      const profileSnapshot = await this.firestore.collection('profiles').doc(item.profile.id).get();
+      return profileSnapshot.data();
+    }));
+
+    return result;
   }
 }

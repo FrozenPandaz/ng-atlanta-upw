@@ -71,6 +71,26 @@ export class EditLanderComponent implements OnInit {
     membersSnapshot.docs[0].ref.delete();
   }
 
+  async shiftMember(member: any, direction: 'up' | 'down') {
+    const membersRef = this.listRef
+      .collection<{ profile: firebase.firestore.DocumentReference }>('members').ref;
+
+    const offset = direction === 'up' ? -1 : 1;
+
+    const targetMemberRefs = await membersRef.where('rank', '==', member.rank).limit(1).get();
+    const affectedMemberRefs = await membersRef.where('rank', '==', member.rank + offset).limit(1).get();
+
+    const [ targetMemberDoc ] = targetMemberRefs.docs;
+    const [ affectedMemberDoc ] = affectedMemberRefs.docs;
+
+    targetMemberDoc.ref.update({
+      rank: targetMemberDoc.data().rank + offset
+    });
+    affectedMemberDoc.ref.update({
+      rank: affectedMemberDoc.data().rank - offset
+    });
+  }
+
   private async memberExists(profile: Profile): Promise<boolean> {
     const membersSnapshot = await this.listRef
       .collection<{ profile: firebase.firestore.DocumentReference }>('members', ref => ref.orderBy('rank'))
