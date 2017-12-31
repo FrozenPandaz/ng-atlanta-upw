@@ -1,10 +1,20 @@
 <div *ngIf="list | async; let list">
-  <h1>{{ list.name }}</h1>
-  <p>{{ list.description }}</p>
+  <header>
+    <div>
+      <h1>{{ list.name }}</h1>
+      <p>{{ list.description }}</p>
+    </div>
+  </header>
   <ol>
     <li *ngFor="let member of list.members">
       <a [routerLink]="['/profile', member.profile.id]">
-        {{ member.rank }}. {{ member.profile.name }}
+        <!-- <div class="member" [ngStyle]="{
+          'background-image': 'url(' + member.profile.image + ')'
+        }"> -->
+        <div class="member">
+          <img [src]="member.profile.image">
+        </div>
+        <p>{{ member.rank }}. {{ member.profile.name }}</p>
       </a>
     </li>
   </ol>
