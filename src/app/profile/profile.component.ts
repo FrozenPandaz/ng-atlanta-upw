@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Profile } from './profile/profile';
 import { Observable } from 'rxjs/Observable';
 import { pluck } from 'rxjs/operators';
-import { SessionStorage } from '../shared/session-storage/session-storage';
+import { CookiesService } from '../shared/session-storage/session-storage';
 import { List } from '../lander/list/list';
 import { ListService } from '../lander/list/list.service';
 
@@ -23,12 +23,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private sessionStorage: SessionStorage,
+    private sessionStorage: CookiesService,
     private listService: ListService,
   ) { }
 
   ngOnInit() {
-    const listName = this.sessionStorage.getItem('current-list');
+    const listName = this.sessionStorage.get('current-list');
     if (listName) {
       this.currentList = this.listService.getList(listName);
     }

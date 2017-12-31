@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 import { HeaderModule } from './header/header.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseModule } from './firebase.module';
-import { ClientSessionStorageModule } from './shared/session-storage/client.session-storage.module';
+import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
 import { ListService } from './lander/list/list.service';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ListService } from './lander/list/list.service';
     HeaderModule,
     HttpClientModule,
     FirebaseModule,
-    ClientSessionStorageModule
+    ClientCookiesModule
   ],
   providers: [
     ListService
