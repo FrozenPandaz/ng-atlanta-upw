@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ServerModule } from '@angular/platform-server';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 import { AppModule } from './app.module';
@@ -11,6 +11,7 @@ import { NodeCookiesModule } from './shared/cookies/node.cookies.module';
     AppModule,
     ServerModule,
     ModuleMapLoaderModule,
+    ServerTransferStateModule,
     NodeCookiesModule
   ],
   bootstrap: [AppComponent],
