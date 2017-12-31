@@ -36,8 +36,15 @@ export class ProfileComponent implements OnInit {
 
   getMember(list: List, direction: 'next'|'previous') {
     const offset = direction === 'next' ? 1 : -1;
-    const currentIndex = list.members.findIndex(item => item.profile.id === this.activatedRoute.snapshot.data.profile.id);
-    return list.members[currentIndex + offset];
+    const rank = this.getIndex(list);
+    return list.members[rank + offset];
   }
 
+  getIndex(list: List): number {
+    return list.members.findIndex(item => item.profile.id === this.activatedRoute.snapshot.data.profile.id);
+  }
+
+  getRank(list: List): number {
+    return this.getIndex(list) + 1;
+  }
 }

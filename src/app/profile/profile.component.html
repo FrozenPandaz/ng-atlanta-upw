@@ -1,8 +1,10 @@
 <div *ngIf="profile | async; let profile">
   <img [src]="profile.image">
   <div class="main">
-    <h1>{{profile.name}}</h1>
-    <p>{{profile.bio}}</p>
+
+    <p *ngIf="currentList | async; let currentList" class="rank">Rank #{{ getRank(currentList) }}
+    <h1>{{ profile.name }}</h1>
+    <p>{{ profile.bio }}</p>
     <p *ngIf="currentList | async; let currentList">
       <a *ngIf="getMember(currentList, 'previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.profile.id ]">Previous Member</a>
       <a [routerLink]="[ '/', currentList.id ]">Back to {{ currentList.name }}</a>
