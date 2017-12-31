@@ -41,6 +41,7 @@ export class EditProfileComponent implements OnInit {
     this.firestore.collection('profiles').doc(this.profileSlug).set({
       name: this.formGroup.get('name').value,
       bio: this.formGroup.get('bio').value,
+      image: this.formGroup.get('image').value,
       id: this.profileSlug
     });
   }
@@ -52,13 +53,15 @@ export class EditProfileComponent implements OnInit {
       this.exists = false;
       this.formGroup = new FormGroup({
         name: new FormControl(),
-        bio: new FormControl()
+        bio: new FormControl(),
+        image: new FormControl()
       });
     } else {
       const profile: Profile = profileRef.data() as Profile;
       this.formGroup = new FormGroup({
         name: new FormControl(profile.name),
-        bio: new FormControl(profile.bio)
+        bio: new FormControl(profile.bio),
+        image: new FormControl(profile.image)
       });
     }
     this.cdRef.markForCheck();

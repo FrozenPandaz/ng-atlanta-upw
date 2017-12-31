@@ -1,0 +1,24 @@
+@import './_global.variables';
+
+:host {
+    display: flex;
+    justify-content: center;
+}
+
+div.main {
+    position: relative;
+    margin-top: $navbar-height;
+    width: 100%;
+    max-width: 1600px;
+}
+
+::ng-deep {
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    ol, ul {
+        list-style: none;
+    }
+}

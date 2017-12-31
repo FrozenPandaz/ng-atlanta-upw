@@ -12,6 +12,8 @@ import { ListResolver } from './list/list.resolver';
     LanderRoutingModule
   ],
   declarations: [LanderComponent],
-  providers: [ListService, ListResolver]
+  providers: [
+    ListResolver
+  ]
 })
 export class LanderModule { }

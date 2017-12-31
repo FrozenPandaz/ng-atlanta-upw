@@ -4,12 +4,14 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
+import { NodeSessionStorageModule } from './shared/session-storage/node.session-storage.module';
 
 @NgModule({
   imports: [
     AppModule,
     ServerModule,
-    ModuleMapLoaderModule
+    ModuleMapLoaderModule,
+    NodeSessionStorageModule
   ],
   bootstrap: [AppComponent],
 })

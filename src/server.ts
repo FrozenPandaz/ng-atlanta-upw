@@ -5,6 +5,8 @@ import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import 'zone.js/dist/zone-node';
 
 import * as path from 'path';
+import * as http from 'http';
+import * as fs from 'fs';
 import * as express from 'express';
 import { ListsController } from './api/lists/lists.controller';
 import { ProfilesController } from './api/profiles/profiles.controller';
@@ -13,8 +15,8 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../dist-server/ma
 const server = express();
 
 import * as firebase from 'firebase';
-
 import 'firebase/firestore';
+
 import { environment } from './environments/environment';
 
 firebase.initializeApp(environment.firebaseConfig);

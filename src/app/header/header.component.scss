@@ -1,0 +1,22 @@
+@import '../_global.variables';
+
+:host {
+    width: 100%;
+    height: $navbar-height;
+    position: fixed;
+    top: 0;
+    background-color: #333333;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1em;
+    width: 100%;
+    max-width: 1600px;
+    box-sizing: border-box;
+}

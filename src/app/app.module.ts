@@ -10,6 +10,8 @@ import { environment } from '../environments/environment';
 import { HeaderModule } from './header/header.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FirebaseModule } from './firebase.module';
+import { ClientSessionStorageModule } from './shared/session-storage/client.session-storage.module';
+import { ListService } from './lander/list/list.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import { FirebaseModule } from './firebase.module';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     HeaderModule,
     HttpClientModule,
-    FirebaseModule
+    FirebaseModule,
+    ClientSessionStorageModule
   ],
-  providers: [],
+  providers: [
+    ListService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

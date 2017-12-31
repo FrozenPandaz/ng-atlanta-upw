@@ -4,5 +4,6 @@
 <form *ngIf="formGroup" [formGroup]="formGroup" (submit)="onSubmit($event)">
   <label>Name: </label><input type="text" formControlName="name"><br>
   <label>Bio: </label><input type="text" formControlName="bio"><br>
+  <label>Image URL: </label><input type="text" formControlName="image"><br>
   <input type="submit">
 </form>

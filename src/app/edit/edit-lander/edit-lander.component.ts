@@ -104,9 +104,10 @@ export class EditLanderComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
 
-    this.listRef.set({
+    this.listRef.update({
       name: this.listFormGroup.get('name').value,
-      description: this.listFormGroup.get('description').value
+      description: this.listFormGroup.get('description').value,
+      id: this.activatedRoute.snapshot.params.listName
     });
   }
 

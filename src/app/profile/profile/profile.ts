@@ -13,4 +13,9 @@ export interface Profile {
    * Description of the profile
    */
   bio: string;
+
+  /**
+   * Url of image of the profile
+   */
+  image: string;
 }
