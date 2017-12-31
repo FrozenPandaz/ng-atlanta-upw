@@ -20,6 +20,7 @@ ol {
     width: 100%;
     display: flex;
     justify-items: center;
+    flex-wrap: wrap;
 }
 
 li {
@@ -60,5 +61,4 @@ li {
         will-change: transform;
         transition: transform 500ms;
     }
-
 }
