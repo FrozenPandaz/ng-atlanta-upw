@@ -8,6 +8,7 @@ import * as path from 'path';
 import * as http from 'http';
 import * as fs from 'fs';
 import * as express from 'express';
+import * as functions from 'firebase-functions';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import { ListsController } from './api/lists/lists.controller';
@@ -119,3 +120,5 @@ server.get('/api/reset', async (req, res) => {
 server.listen(4300, (err) => {
   console.log('Server has started: http://localhost:4300');
 });
+
+exports.server = functions.https.onRequest(server);

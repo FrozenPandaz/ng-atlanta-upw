@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { first, map, tap } from 'rxjs/operators';
 
 import { List } from '../../lander/list/list';

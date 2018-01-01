@@ -5,6 +5,8 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { NodeCookiesModule } from './shared/cookies/node.cookies.module';
+import { ENVIRONMENT } from '../environments/environment.token';
+import { environment } from '../environments/environment.server';
 
 @NgModule({
   imports: [
@@ -13,6 +15,12 @@ import { NodeCookiesModule } from './shared/cookies/node.cookies.module';
     ModuleMapLoaderModule,
     ServerTransferStateModule,
     NodeCookiesModule
+  ],
+  providers: [
+    {
+      provide: ENVIRONMENT,
+      useValue: environment
+    }
   ],
   bootstrap: [AppComponent],
 })

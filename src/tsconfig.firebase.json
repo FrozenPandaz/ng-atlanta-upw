@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.server-exec.json",
+  "files": [
+    "./firebase.ts"
+  ]
+}

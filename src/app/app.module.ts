@@ -14,6 +14,10 @@ import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
 import { ListService } from './lander/list/list.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
+import { BaseInterceptor } from './shared/interceptors/base.interceptor';
+import { ENVIRONMENT } from '../environments/environment.token';
+import { EnvironmentProperties } from '../environments/environment-properties';
+import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,7 @@ import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/server/ngsw-worker.js', { enabled: environment.production }),
     HeaderModule,
     HttpClientModule,
     FirebaseModule,
@@ -32,9 +36,23 @@ import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
   providers: [
     ListService,
     {
+      provide: ENVIRONMENT,
+      useValue: environment
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: CacheInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: BaseInterceptor
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: LoggingInterceptor
     }
   ],
   bootstrap: [AppComponent]

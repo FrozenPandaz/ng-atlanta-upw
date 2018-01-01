@@ -9,7 +9,7 @@ export class ListService {
   constructor(private http: HttpClient) {}
 
   getList(listName: string): Observable<List> {
-    return this.http.get<List>('http://localhost:4300/api/list/' + listName);
+    return this.http.get<List>('api/list/' + listName);
   }
 
 }

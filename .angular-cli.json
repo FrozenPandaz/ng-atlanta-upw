@@ -43,10 +43,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "fbs",
       "scripts": [],
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "environments/environment.server.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "dev": "environments/environment.server.ts",
+        "prod": "environments/environment.server.prod.ts"
       },
       "serviceWorker": true,
       "platform": "server",

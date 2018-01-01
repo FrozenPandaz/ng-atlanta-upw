@@ -14,8 +14,7 @@ export class CacheInterceptor implements HttpInterceptor {
         if (req.method !== 'GET') {
             return next.handle(req);
         }
-
-        const key = makeStateKey<any>(req.url);
+        const key = makeStateKey<any>(req.urlWithParams);
 
         const cachedValue = this.transferState.get(key, null);
         if (cachedValue) {
