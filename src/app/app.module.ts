@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { HeaderModule } from './header/header.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FirebaseModule } from './firebase.module';
 import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
 import { ListService } from './lander/list/list.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -30,7 +29,6 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
     ServiceWorkerModule.register('/server/ngsw-worker.js', { enabled: environment.production }),
     HeaderModule,
     HttpClientModule,
-    FirebaseModule,
     ClientCookiesModule
   ],
   providers: [
