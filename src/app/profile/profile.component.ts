@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Profile } from './profile/profile';
 import { Observable } from 'rxjs/Observable';
-import { pluck } from 'rxjs/operators';
+import { pluck, share } from 'rxjs/operators';
 import { CookiesService } from '../shared/cookies/cookies.service';
 import { List } from '../lander/list/list';
 import { ListService } from '../lander/list/list.service';
@@ -30,7 +30,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     const listName = this.cookiesService.get('current-list');
     if (listName) {
-      this.currentList = this.listService.getList(listName);
+      this.currentList = this.listService.getList(listName).pipe(
+        share()
+      );
     }
   }
 
