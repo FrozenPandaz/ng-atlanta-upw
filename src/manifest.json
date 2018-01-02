@@ -1,0 +1,26 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Angular PWA ",
+  "scope": "/",
+  "display": "fullscreen",
+  "start_url": "https://ng-forbes-atlanta.firebaseapp.com/fictional-power-women",
+  "short_name": "Angular PWA",
+  "theme_color": "#333333",
+  "description": "Sample PWA App",
+  "orientation": "any",
+  "background_color": "#333333",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32"
+    },
+    {
+      "src": "/app-icon.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    }
+  ]
+}
