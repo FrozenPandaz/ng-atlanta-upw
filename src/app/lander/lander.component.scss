@@ -24,9 +24,14 @@ ol {
 }
 
 li {
-    width: 20%;
-    padding-bottom: 20%;
     position: relative;
+    width: 20%;
+
+    :after {
+      content: '';
+      padding-bottom: 100%;
+      display: block;
+    }
 
     p {
         position: absolute;
@@ -70,14 +75,12 @@ h1 {
 @media (max-width: 1000px) {
   li {
     width: 25%;
-    padding-bottom: 25%;
   }
 }
 
 @media (max-width: 800px) {
   li {
     width: 33.33%;
-    padding-bottom: 33.33%;
   }
 }
 
@@ -88,7 +91,10 @@ h1 {
 
   li {
     width: 100%;
-    padding-bottom: 40%;
+
+    :after {
+      padding-bottom: 40%;
+    }
   }
 
   .member img {
