@@ -5,7 +5,6 @@ import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import 'zone.js/dist/zone-node';
 
 import * as path from 'path';
-import * as http from 'http';
 import * as fs from 'fs';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
@@ -65,6 +64,8 @@ const routes = [
 
 routes.forEach((route) => {
   server.get(route, (req, res) => {
+    res.setHeader('Cache-Control', `public, s-maxage=${12 * 60 * 60}`);
+
     res.render(indexPath, {
       req,
       res
@@ -73,11 +74,15 @@ routes.forEach((route) => {
 });
 
 server.get('/api/list/:listName', async (req, res) => {
+  res.setHeader('Cache-Control', `public, max-age=${60}, s-maxage=${10 * 60}`);
+
   const list = await listController.getList(req.params.listName);
   res.json(list);
 });
 
 server.get('/api/profile/:profileSlug', async (req, res) => {
+  res.setHeader('Cache-Control', `public, max-age=${60}, s-maxage=${10 * 60}`);
+
   const profile = await profileController.getProfile(req.params.profileSlug);
   res.json(profile);
 });

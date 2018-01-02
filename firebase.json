@@ -16,7 +16,18 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": "server"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(bundle|chunk).js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
       }
     ]
   },

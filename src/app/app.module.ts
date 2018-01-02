@@ -26,7 +26,7 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/server/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     HeaderModule,
     HttpClientModule,
     ClientCookiesModule

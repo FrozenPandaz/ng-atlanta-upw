@@ -23,5 +23,21 @@
         "/assets/**"
       ]
     }
-  }]
+  }],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "**/api/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 500,
+        "maxAge": "1d",
+        "timeout": "1s",
+        "strategy": "performance"
+      }
+    }
+  ]
 }

@@ -2,7 +2,7 @@ import { EnvironmentProperties } from './environment-properties';
 
 export const environment: EnvironmentProperties = {
   production: true,
-  apiBase: '/server/',
+  apiBase: '/',
   firebaseConfig: {
     apiKey: 'AIzaSyAtG7lYuTEcts9B2BwxmU7uhspnMDm6NkA',
     authDomain: 'ng-forbes-atlanta.firebaseapp.com',

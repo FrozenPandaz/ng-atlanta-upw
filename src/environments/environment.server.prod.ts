@@ -1,7 +1,7 @@
 import { EnvironmentProperties } from './environment-properties';
 
 export const environment: EnvironmentProperties = {
-    production: false,
+    production: true,
     apiBase: 'http://localhost:4300/',
     firebaseConfig: {
         apiKey: 'AIzaSyAtG7lYuTEcts9B2BwxmU7uhspnMDm6NkA',
