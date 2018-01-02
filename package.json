@@ -16,7 +16,7 @@
     "build:server": "npm run build:server:ng && npm run build:server:ts",
     "watch:server:ng": "npm run build:server:ng -- --watch",
     "watch:server:ts": "npm run build:server:ts -- -w",
-    "watch:client": "ng build --watch",
+    "watch:client": "ng build --aot --watch",
     "watch": "concurrently 'npm run watch:client' 'npm run watch:server:ng' 'npm run watch:server:ts' -n client,server:ng,server:ts",
     "server": "nodemon server-exec/server.js",
     "test": "ng test",
