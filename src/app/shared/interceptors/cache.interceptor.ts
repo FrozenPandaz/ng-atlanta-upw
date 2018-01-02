@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators/tap';
 import { HttpResponse } from '@angular/common/http';
 
 @Injectable()

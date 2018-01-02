@@ -9,7 +9,7 @@
     "predeploy": "npm run build:prod",
     "deploy": "firebase deploy",
     "build:prod": "concurrently 'npm run build:client:prod' 'npm run build:server:ng' 'npm run build:server:fb' -n client,server:ng,server:ts",
-    "build:client:prod": "ng build --prod --deployUrl https://ng-forbes-atlanta.firebaseapp.com/",
+    "build:client:prod": "ng build --prod --build-optimizer --vendor-chunk --sourcemaps --deployUrl https://ng-forbes-atlanta.firebaseapp.com/",
     "build:server:ng": "ng build --app server --aot",
     "build:server:fb": "tsc --project src/tsconfig.firebase.json",
     "build:server:ts": "tsc --project src/tsconfig.server-exec.json",

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { pluck } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators/pluck';
 import { Observable } from 'rxjs/Observable';
 import { List } from './list/list';
 import { CookiesService } from '../shared/cookies/cookies.service';
