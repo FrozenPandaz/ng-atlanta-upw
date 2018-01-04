@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('ng-forbes-atlanta App', () => {
+describe('ng-atlanta-upw App', () => {
   let page: AppPage;
 
   beforeEach(() => {
