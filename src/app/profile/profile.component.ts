@@ -9,7 +9,7 @@ import { List } from '../lander/list/list';
 import { ListService } from '../lander/list/list.service';
 
 @Component({
-  selector: 'fbs-profile',
+  selector: 'upw-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

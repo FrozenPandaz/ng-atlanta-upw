@@ -19,7 +19,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "fbs",
+      "prefix": "upw",
       "styles": [
         "styles.scss"
       ],
@@ -38,7 +38,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.server.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "fbs",
+      "prefix": "upw",
       "environmentSource": "environments/environment.server.ts",
       "environments": {
         "dev": "environments/environment.server.ts",

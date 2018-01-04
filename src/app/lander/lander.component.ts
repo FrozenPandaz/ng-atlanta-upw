@@ -7,7 +7,7 @@ import { List } from './list/list';
 import { CookiesService } from '../shared/cookies/cookies.service';
 
 @Component({
-  selector: 'fbs-lander',
+  selector: 'upw-lander',
   templateUrl: './lander.component.html',
   styleUrls: ['./lander.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

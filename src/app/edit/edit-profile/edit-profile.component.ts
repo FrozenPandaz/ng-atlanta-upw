@@ -6,7 +6,7 @@ import { Profile } from '../../profile/profile/profile';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'fbs-edit-profile',
+  selector: 'upw-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

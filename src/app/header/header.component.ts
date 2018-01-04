@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fbs-header',
+  selector: 'upw-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

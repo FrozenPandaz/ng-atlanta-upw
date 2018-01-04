@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Profile } from '../../profile/profile/profile';
 
 @Component({
-  selector: 'fbs-edit-lander',
+  selector: 'upw-edit-lander',
   templateUrl: './edit-lander.component.html',
   styleUrls: ['./edit-lander.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
