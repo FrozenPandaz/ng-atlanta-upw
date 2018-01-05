@@ -1,0 +1,11 @@
+<div *ngIf="currentUser | async; let user; else showLogin">
+  <img [src]="user.photoURL">
+  <button (click)="logout()">Logout</button>
+</div>
+<ng-template #showLogin>
+  <button (click)="login()">
+    <p>Sign in with</p>
+    <img src="/assets/Octocat.png">
+    <img src="/assets/GitHub_Logo.png">
+  </button>
+</ng-template>

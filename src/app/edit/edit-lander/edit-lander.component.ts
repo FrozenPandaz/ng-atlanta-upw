@@ -29,6 +29,8 @@ export class EditLanderComponent implements OnInit {
 
   public members: Observable<{ profile: firebase.firestore.DocumentReference }[]> = this.getMembers();
 
+  isNode: boolean = isPlatformServer(this.platformId);
+
   constructor(
     private firestore: AngularFirestore,
     private activatedRoute: ActivatedRoute,
@@ -36,7 +38,7 @@ export class EditLanderComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: string) { }
 
   async ngOnInit() {
-    if (isPlatformServer(this.platformId)) {
+    if (this.isNode) {
       return;
     }
 

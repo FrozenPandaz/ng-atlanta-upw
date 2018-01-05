@@ -1,0 +1,32 @@
+button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  border-color: black;
+}
+
+p {
+  font-size: 16px;
+}
+
+img {
+  height: 20px;
+}
+
+div {
+  display: flex;
+
+  button {
+    width: auto;
+  }
+
+  img {
+    height: 40px;
+    margin-right: 1em;
+    border-radius: 50%;
+  }
+}

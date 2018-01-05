@@ -17,6 +17,8 @@ export class EditProfileComponent implements OnInit {
 
   public exists = true;
 
+  isNode: boolean = isPlatformServer(this.platformId);
+
   private profileSlug: string;
 
   constructor(
@@ -27,7 +29,7 @@ export class EditProfileComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    if (isPlatformServer(this.platformId)) {
+    if (this.isNode) {
       return;
     }
 
