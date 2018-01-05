@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Profile } from './profile/profile';
 import { Observable } from 'rxjs/Observable';
 import { pluck } from 'rxjs/operators/pluck';
+import { tap } from 'rxjs/operators/tap';
 import { share } from 'rxjs/operators/share';
 import { CookiesService } from '../shared/cookies/cookies.service';
 import { List } from '../lander/list/list';
 import { ListService } from '../lander/list/list.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'upw-profile',
@@ -17,7 +19,10 @@ import { ListService } from '../lander/list/list.service';
 export class ProfileComponent implements OnInit {
 
   public profile: Observable<Profile> = this.activatedRoute.data.pipe(
-    pluck('profile')
+    pluck('profile'),
+    tap((profile: Profile) => {
+      this.setMeta(profile);
+    })
   );
 
   public currentList: Observable<List>;
@@ -26,6 +31,7 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private cookiesService: CookiesService,
     private listService: ListService,
+    private title: Title
   ) { }
 
   ngOnInit() {
@@ -49,5 +55,9 @@ export class ProfileComponent implements OnInit {
 
   getRank(list: List): number {
     return this.getIndex(list) + 1;
+  }
+
+  private setMeta(profile: Profile) {
+    this.title.setTitle(profile.name);
   }
 }
