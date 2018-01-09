@@ -5,20 +5,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditRoutingModule } from './edit-routing.module';
 import { EditLanderComponent } from './edit-lander/edit-lander.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { FirebaseModule } from './firebase.module';
-import { LoginComponent } from './login/login.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FirebaseModule,
-    EditRoutingModule
+    EditRoutingModule,
+    AngularFirestoreModule
   ],
   declarations: [
     EditLanderComponent,
     EditProfileComponent,
-    LoginComponent
   ]
 })
 export class EditModule { }

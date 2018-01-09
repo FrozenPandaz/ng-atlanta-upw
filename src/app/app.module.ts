@@ -17,6 +17,8 @@ import { BaseInterceptor } from './shared/interceptors/base.interceptor';
 import { ENVIRONMENT } from '../environments/environment.token';
 import { EnvironmentProperties } from '../environments/environment-properties';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
+import { LoginModule } from './login/login.module';
+import { FirebaseModule } from './firebase.module';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,10 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
     BrowserTransferStateModule,
     AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    HeaderModule,
     HttpClientModule,
-    ClientCookiesModule
+    ClientCookiesModule,
+    HeaderModule,
+    FirebaseModule
   ],
   providers: [
     ListService,

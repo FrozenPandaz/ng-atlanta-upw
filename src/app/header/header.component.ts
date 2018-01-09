@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'upw-header',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isNode: boolean = isPlatformServer(this.platformId);
+
+  constructor(@Inject(PLATFORM_ID) private platformId: string) { }
 
   ngOnInit() {
   }
