@@ -3,9 +3,8 @@
   <img [src]="user.photoURL">
 </div>
 <ng-template #showLogin>
-  <button *ngIf="ready" (click)="login()">
+  <button class="login" (click)="login()">
     <p>Sign in with</p>
-    <img src="/assets/Octocat.png">
-    <img src="/assets/GitHub_Logo.png">
+    <img class="octocat" src="/assets/Octocat.png">
   </button>
 </ng-template>

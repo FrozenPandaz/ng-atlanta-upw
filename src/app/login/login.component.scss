@@ -3,7 +3,6 @@ button {
   align-items: center;
   justify-content: space-around;
   padding: 10px;
-  width: 200px;
   background-color: white;
   border-radius: 10px;
   border-color: black;
@@ -21,7 +20,6 @@ div {
   display: flex;
 
   button {
-    width: auto;
     display: none;
     margin-right: 1em;
   }
@@ -35,5 +33,26 @@ div {
   img {
     height: 40px;
     border-radius: 50%;
+  }
+}
+
+.login {
+  border-radius: 50%;
+
+  p {
+    display: none;
+    margin-right: 1em;
+  }
+
+  .octocat {
+    min-width: 25px;
+  }
+
+  &:hover {
+    border-radius: 10px;
+
+    p {
+      display: inline;
+    }
   }
 }
