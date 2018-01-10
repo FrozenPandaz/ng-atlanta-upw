@@ -2,7 +2,13 @@
   This profile does not exist, please create it
 </p>
 <form *ngIf="formGroup" [formGroup]="formGroup" (submit)="onSubmit($event)">
-  <label>Name: </label><input type="text" formControlName="name"><br>
+  <label>First Name: </label><input type="text" formControlName="firstName"><br>
+  <label>Middle Name: </label><input type="text" formControlName="middleName"><br>
+  <label>Last Name: </label><input type="text" formControlName="lastName"><br>
+  <label>Name Format: </label>
+  <select formControlName="nameFormat">
+    <option *ngFor="let format of nameFormats; let first = first;" [value]="format">{{ format }}</option>
+  </select><br>
   <label>Bio: </label><input type="text" formControlName="bio"><br>
   <label>Image URL: </label><input type="text" formControlName="image"><br>
   <input type="submit">

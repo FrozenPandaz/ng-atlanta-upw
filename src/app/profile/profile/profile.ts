@@ -5,7 +5,27 @@ export interface Profile {
   id: string;
 
   /**
-   * Name of the profile
+   * First name of the profile
+   */
+  firstName: string;
+
+  /**
+   * Middle name of the profile
+   */
+  middleName: string;
+
+  /**
+   * Last name of the profile
+   */
+  lastName: string;
+
+  /**
+   * Format of the name
+   */
+  nameFormat: string;
+
+  /**
+   * Display Name of the profile
    */
   name: string;
 

@@ -17,6 +17,12 @@ export class EditProfileComponent implements OnInit {
 
   public exists = true;
 
+  public nameFormats = [
+    'FN LN',
+    'FN MN LN',
+    'FN'
+  ];
+
   isNode: boolean = isPlatformServer(this.platformId);
 
   private profileSlug: string;
@@ -41,9 +47,8 @@ export class EditProfileComponent implements OnInit {
     event.preventDefault();
 
     this.firestore.collection('profiles').doc(this.profileSlug).set({
-      name: this.formGroup.get('name').value,
-      bio: this.formGroup.get('bio').value,
-      image: this.formGroup.get('image').value,
+      ...this.formGroup.value,
+      name: this.getName(),
       id: this.profileSlug
     });
   }
@@ -54,20 +59,34 @@ export class EditProfileComponent implements OnInit {
     if (!profileRef.exists) {
       this.exists = false;
       this.formGroup = new FormGroup({
-        name: new FormControl(),
+        firstName: new FormControl(),
+        middleName: new FormControl(),
+        lastName: new FormControl(),
+        nameFormat: new FormControl(this.nameFormats[0]),
         bio: new FormControl(),
         image: new FormControl()
       });
     } else {
       const profile: Profile = profileRef.data() as Profile;
       this.formGroup = new FormGroup({
-        name: new FormControl(profile.name),
+        firstName: new FormControl(profile.firstName),
+        middleName: new FormControl(profile.middleName),
+        lastName: new FormControl(profile.lastName),
+        nameFormat: new FormControl(profile.nameFormat),
         bio: new FormControl(profile.bio),
         image: new FormControl(profile.image)
       });
     }
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();
+  }
+
+  private getName() {
+    const formData = this.formGroup.value;
+    return formData.nameFormat
+      .replace('FN', formData.firstName)
+      .replace('MN', formData.middleName)
+      .replace('LN', formData.lastName);
   }
 
 }
