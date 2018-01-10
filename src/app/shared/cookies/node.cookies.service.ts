@@ -1,5 +1,5 @@
 import { CookiesService } from './cookies.service';
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Request } from 'express';
@@ -12,12 +12,16 @@ export class NodeCookiesService {
     cookies = {};
 
     constructor(
-        @Inject(REQUEST) private request: Request
+        @Optional() @Inject(REQUEST) private request: Request
     ) {
-        const cookieString = this.request.headers.cookie as string;
-        if (cookieString) {
-            this.cookies = cookie.parse(cookieString);
-        }
+      if (!this.request) {
+        return;
+      }
+
+      const cookieString = this.request.headers.cookie as string;
+      if (cookieString) {
+          this.cookies = cookie.parse(cookieString);
+      }
     }
 
     get(key: string): string {

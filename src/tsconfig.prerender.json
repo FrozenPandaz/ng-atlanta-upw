@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.server-exec.json",
+  "compilerOptions": {
+    "outDir": "../prerender"
+  },
+  "files": [
+    "./prerender.ts"
+  ]
+}

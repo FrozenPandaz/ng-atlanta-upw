@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run watch",
-    "predeploy": "npm run build:prod",
+    "predeploy": "npm run build:prod && npm run prerender",
     "deploy": "firebase deploy",
     "build:prod": "concurrently 'npm run build:client:prod' 'npm run build:server:ng' 'npm run build:server:fb' -n client,server:ng,server:ts",
     "build:client:prod": "ng build --prod --build-optimizer --vendor-chunk --sourcemaps --deployUrl https://ng-atlanta-upw.firebaseapp.com/",
@@ -18,6 +18,7 @@
     "watch:server:ts": "npm run build:server:ts -- -w",
     "watch:client": "ng build --aot --watch",
     "watch": "concurrently 'npm run watch:client' 'npm run watch:server:ng' 'npm run watch:server:ts' -n client,server:ng,server:ts",
+    "prerender": "tsc --project src/tsconfig.prerender.json && node prerender/prerender.js",
     "server": "nodemon server-exec/server.js",
     "test": "ng test",
     "lint": "ng lint",
