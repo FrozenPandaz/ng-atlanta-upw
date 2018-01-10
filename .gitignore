@@ -6,7 +6,6 @@
 /out-tsc
 /dist-server
 /server-exec
-/prerender
 
 # dependencies
 /node_modules
