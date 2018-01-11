@@ -1,6 +1,7 @@
-<p *ngIf="!exists">
-  This profile does not exist, please create it
-</p>
+<div *ngIf="!exists">
+  <h2>This profile does not exist</h2>
+  <button (click)="create()">Create the profile now!</button>
+</div>
 <form *ngIf="formGroup" [formGroup]="formGroup" (submit)="onSubmit($event)">
   <label>First Name: </label><input type="text" formControlName="firstName"><br>
   <label>Middle Name: </label><input type="text" formControlName="middleName"><br>

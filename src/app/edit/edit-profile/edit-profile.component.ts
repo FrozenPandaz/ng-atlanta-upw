@@ -1,10 +1,18 @@
 import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Profile } from '../../profile/profile/profile';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { debounceTime } from 'rxjs/operators/debounceTime';
+import { map } from 'rxjs/operators/map';
+import { merge } from 'rxjs/observable/merge';
+
+interface Change {
+  key: string;
+  value: any;
+}
 
 @Component({
   selector: 'upw-edit-profile',
@@ -28,7 +36,7 @@ export class EditProfileComponent implements OnInit {
 
   profile: Observable<Profile>;
 
-  private profileSlug: string;
+  private profileDoc: AngularFirestoreDocument<Profile>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -42,35 +50,51 @@ export class EditProfileComponent implements OnInit {
       return;
     }
 
-    this.profileSlug = this.activatedRoute.snapshot.params.profileSlug;
-    await this.getProfile(this.profileSlug);
+    const profileSlug = this.activatedRoute.snapshot.params.profileSlug;
+    this.profileDoc = this.firestore.collection('profiles').doc<Profile>(profileSlug);
+
+    this.profile = this.profileDoc.valueChanges();
+    await this.getProfile();
+
+    merge(
+      this.getChanges('firstName'),
+      this.getChanges('middleName'),
+      this.getChanges('lastName'),
+      this.getChanges('nameFormat'),
+      this.getChanges('bio'),
+      this.getChanges('image')
+    )
+    .pipe(
+      debounceTime(100),
+    ).subscribe((partial: Partial<Profile>) => {
+      this.profileDoc.update(partial);
+    });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
+  }
 
-    this.firestore.collection('profiles').doc(this.profileSlug).set({
-      ...this.formGroup.value,
-      name: this.getName(),
-      id: this.profileSlug
+  create() {
+    this.profileDoc.update({
+      id: this.profileDoc.ref.id
     });
   }
 
-  private async getProfile(profileSlug: string): Promise<void> {
-    const profileDoc = this.firestore.collection('profiles').doc<Profile>(profileSlug);
-    const profileRef = await profileDoc.ref.get();
+  private getChanges(key: keyof Profile): Observable<Partial<Profile>> {
+    return this.formGroup.controls[key].valueChanges.pipe(
+      map((value: any) => {
+        const partial: Partial<Profile> = {};
+        partial[key] = value;
+        return partial;
+      })
+    );
+  }
 
-    if (!profileRef.exists) {
-      this.exists = false;
-      this.formGroup = new FormGroup({
-        firstName: new FormControl(),
-        middleName: new FormControl(),
-        lastName: new FormControl(),
-        nameFormat: new FormControl(this.nameFormats[0]),
-        bio: new FormControl(),
-        image: new FormControl()
-      });
-    } else {
+  private async getProfile(): Promise<void> {
+    const profileRef = await this.profileDoc.ref.get();
+    this.exists = profileRef.exists;
+    if (this.exists) {
       const profile: Profile = profileRef.data() as Profile;
       this.formGroup = new FormGroup({
         firstName: new FormControl(profile.firstName),
@@ -80,11 +104,9 @@ export class EditProfileComponent implements OnInit {
         bio: new FormControl(profile.bio),
         image: new FormControl(profile.image)
       });
-
-      this.profile = profileDoc.valueChanges();
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
     }
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
   }
 
   private getName() {

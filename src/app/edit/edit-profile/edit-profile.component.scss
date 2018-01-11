@@ -1,3 +1,16 @@
+div {
+  width: 300px;
+  margin: auto;
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  border: black 2px solid;
+  border-radius: 20px;
+  text-align: center;
+}
+
 form {
   position: fixed;
   right: 0;
