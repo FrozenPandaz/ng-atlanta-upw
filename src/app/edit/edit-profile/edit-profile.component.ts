@@ -5,8 +5,8 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { Profile } from '../../profile/profile/profile';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
 import { merge } from 'rxjs/observable/merge';
 
 interface Change {
@@ -53,26 +53,16 @@ export class EditProfileComponent implements OnInit {
     const profileSlug = this.activatedRoute.snapshot.params.profileSlug;
     this.profileDoc = this.firestore.collection('profiles').doc<Profile>(profileSlug);
 
-    this.profile = this.profileDoc.valueChanges();
     await this.getProfile();
-
-    merge(
-      this.getChanges('firstName'),
-      this.getChanges('middleName'),
-      this.getChanges('lastName'),
-      this.getChanges('nameFormat'),
-      this.getChanges('bio'),
-      this.getChanges('image')
-    )
-    .pipe(
-      debounceTime(100),
-    ).subscribe((partial: Partial<Profile>) => {
-      this.profileDoc.update(partial);
-    });
   }
 
-  onSubmit(event: Event) {
+  publish(event: Event) {
     event.preventDefault();
+
+    this.profileDoc.update({
+      ...this.formGroup.value,
+      name: this.getName()
+    });
   }
 
   create() {
@@ -104,6 +94,22 @@ export class EditProfileComponent implements OnInit {
         bio: new FormControl(profile.bio),
         image: new FormControl(profile.image)
       });
+      this.profile = merge(
+        this.profileDoc.valueChanges().pipe(
+          tap((value) => {
+            this.formGroup.setValue(this.getProfileFormData(value));
+          })
+        ),
+        this.formGroup.valueChanges.pipe(
+          map(value => {
+            return {
+              ...value,
+              name: this.getName(),
+              id: this.profileDoc.ref.id
+            };
+          })
+        )
+      );
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     }
@@ -115,6 +121,16 @@ export class EditProfileComponent implements OnInit {
       .replace('FN', formData.firstName)
       .replace('MN', formData.middleName)
       .replace('LN', formData.lastName);
+  }
+
+  private getProfileFormData(profile: Profile) {
+    const formData = {
+      ...this.formGroup.value,
+      ...profile
+    };
+    delete formData.id;
+    delete formData.name;
+    return formData;
   }
 
 }
