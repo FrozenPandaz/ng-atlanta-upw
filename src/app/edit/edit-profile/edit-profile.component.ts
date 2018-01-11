@@ -93,9 +93,9 @@ export class EditProfileComponent implements OnInit {
           })
         )
       );
-      this.cdRef.markForCheck();
-      this.cdRef.detectChanges();
     }
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
   }
 
   private getName() {
