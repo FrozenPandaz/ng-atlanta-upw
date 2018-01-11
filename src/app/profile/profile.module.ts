@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { ProfileService } from './profile/profile.service';
 import { ProfileResolver } from './profile/profile.resolver';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { ProfileService } from './profile/profile.service';
 
 @NgModule({
   imports: [

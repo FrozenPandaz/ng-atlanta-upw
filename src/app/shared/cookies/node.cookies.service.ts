@@ -1,5 +1,5 @@
+import { Inject, Injectable } from '@angular/core';
 import { CookiesService } from './cookies.service';
-import { Injectable, Inject } from '@angular/core';
 
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Request } from 'express';

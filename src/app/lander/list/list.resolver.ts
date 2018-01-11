@@ -1,8 +1,8 @@
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { List } from './list';
-import { Observable } from 'rxjs/Observable';
-import { ListService } from './list.service';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { List } from './list';
+import { ListService } from './list.service';
 
 @Injectable()
 export class ListResolver implements Resolve<List> {

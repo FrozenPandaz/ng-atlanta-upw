@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { CookiesService } from './cookies.service';
 import { ClientCookiesService } from './client.cookies.service';
+import { CookiesService } from './cookies.service';
 
 @NgModule({
     providers: [

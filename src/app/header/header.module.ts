@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+import { NgModule } from '@angular/core';
 import { LoginModule } from '../login/login.module';
+import { HeaderComponent } from './header.component';
 
 @NgModule({
   imports: [

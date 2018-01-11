@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EditLanderComponent } from './edit-lander/edit-lander.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 

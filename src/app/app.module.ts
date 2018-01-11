@@ -1,22 +1,22 @@
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 
-import { environment } from '../environments/environment';
-import { HeaderModule } from './header/header.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
-import { ListService } from './lander/list/list.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
-import { BaseInterceptor } from './shared/interceptors/base.interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { ENVIRONMENT } from '../environments/environment.token';
-import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { FirebaseModule } from './firebase.module';
+import { HeaderModule } from './header/header.module';
+import { ListService } from './lander/list/list.service';
+import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
+import { BaseInterceptor } from './shared/interceptors/base.interceptor';
+import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
+import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 
 @NgModule({
   declarations: [

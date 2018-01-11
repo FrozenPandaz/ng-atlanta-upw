@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LanderComponent } from './lander.component';
+import { NgModule } from '@angular/core';
 import { LanderRoutingModule } from './lander-routing.module';
+import { LanderComponent } from './lander.component';
 import { ListResolver } from './list/list.resolver';
 
 @NgModule({

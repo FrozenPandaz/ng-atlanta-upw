@@ -1,16 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { pluck } from 'rxjs/operators/pluck';
-import { tap } from 'rxjs/operators/tap';
 import { share } from 'rxjs/operators/share';
+import { tap } from 'rxjs/operators/tap';
 
-import { CookiesService } from '../../shared/cookies/cookies.service';
-import { ListService } from '../../lander/list/list.service';
-import { Profile } from '../profile/profile';
 import { List } from '../../lander/list/list';
+import { ListService } from '../../lander/list/list.service';
+import { CookiesService } from '../../shared/cookies/cookies.service';
+import { Profile } from '../profile/profile';
 
 @Component({
   selector: 'upw-profile-page',

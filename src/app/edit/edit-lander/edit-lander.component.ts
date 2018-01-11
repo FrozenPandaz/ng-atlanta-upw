@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, PLATFORM_ID, Inject } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 
-import { List } from '../../lander/list/list';
 import { Observable } from 'rxjs/Observable';
+import { List } from '../../lander/list/list';
 import { Profile } from '../../profile/profile/profile';
 
 @Component({

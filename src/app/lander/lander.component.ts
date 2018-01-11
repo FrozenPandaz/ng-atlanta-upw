@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { Meta, Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
 import { pluck } from 'rxjs/operators/pluck';
 import { tap } from 'rxjs/operators/tap';
-import { Observable } from 'rxjs/Observable';
-import { List } from './list/list';
 import { CookiesService } from '../shared/cookies/cookies.service';
-import { Meta, Title } from '@angular/platform-browser';
+import { List } from './list/list';
 
 @Component({
   selector: 'upw-lander',

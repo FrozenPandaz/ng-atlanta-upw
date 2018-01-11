@@ -66,6 +66,7 @@
       "ignore-params"
     ],
     "no-misused-new": true,
+    "ordered-imports": true,
     "no-non-null-assertion": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,

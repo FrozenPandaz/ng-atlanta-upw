@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { EditRoutingModule } from './edit-routing.module';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { LanderModule } from '../lander/lander.module';
+import { ProfileModule } from '../profile/profile.module';
 import { EditLanderComponent } from './edit-lander/edit-lander.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { ProfileModule } from '../profile/profile.module';
-import { LanderModule } from '../lander/lander.module';
+import { EditRoutingModule } from './edit-routing.module';
 
 @NgModule({
   imports: [

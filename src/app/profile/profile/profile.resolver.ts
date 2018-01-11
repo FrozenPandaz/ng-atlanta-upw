@@ -1,9 +1,9 @@
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
 import { Profile } from './profile';
 import { ProfileService } from './profile.service';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProfileResolver implements Resolve<Profile> {

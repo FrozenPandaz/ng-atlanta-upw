@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Profile } from './profile/profile';
 import { List } from '../lander/list/list';
+import { Profile } from './profile/profile';
 
 @Component({
   selector: 'upw-profile',

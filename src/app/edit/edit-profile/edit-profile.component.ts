@@ -1,13 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Profile } from '../../profile/profile/profile';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
 import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
-import { merge } from 'rxjs/observable/merge';
+import { Profile } from '../../profile/profile/profile';
 
 @Component({
   selector: 'upw-edit-profile',
