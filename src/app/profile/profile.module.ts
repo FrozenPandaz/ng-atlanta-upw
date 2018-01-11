@@ -5,6 +5,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileService } from './profile/profile.service';
 import { ProfileResolver } from './profile/profile.resolver';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { ProfileResolver } from './profile/profile.resolver';
     ProfileService,
     ProfileResolver
   ],
-  declarations: [ProfileComponent]
+  declarations: [
+    ProfileComponent,
+    ProfilePageComponent
+  ]
 })
 export class ProfileModule { }

@@ -1,14 +1,12 @@
-<div *ngIf="profile | async; let profile">
-  <img [src]="profile.image">
-  <div class="main">
+<img [src]="profile.image">
+<div class="main">
 
-    <p *ngIf="currentList | async; let currentList" class="rank">Rank #{{ getRank(currentList) }}
-    <h1>{{ profile.name }}</h1>
-    <p>{{ profile.bio }}</p>
-    <p *ngIf="currentList | async; let currentList">
-      <a *ngIf="getMember(currentList, 'previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.profile.id ]">Previous Member</a>
-      <a [routerLink]="[ '/', currentList.id ]">Back to {{ currentList.name }}</a>
-      <a *ngIf="getMember(currentList, 'next'); let nextMember;" [routerLink]="[ '/profile', nextMember.profile.id ]"> Next Member</a>
-    </p>
-  </div>
+  <p *ngIf="list" class="rank">Rank #{{ getRank(list) }}
+  <h1>{{ profile.name }}</h1>
+  <p>{{ profile.bio }}</p>
+  <p *ngIf="list">
+    <a *ngIf="getMember('previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.profile.id ]">Previous Member</a>
+    <a [routerLink]="[ '/', list.id ]">Back to {{ list.name }}</a>
+    <a *ngIf="getMember('next'); let nextMember;" [routerLink]="[ '/profile', nextMember.profile.id ]"> Next Member</a>
+  </p>
 </div>

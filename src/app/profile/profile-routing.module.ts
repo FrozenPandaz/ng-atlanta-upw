@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfileComponent } from './profile.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 import { ProfileResolver } from './profile/profile.resolver';
 
 const routes: Routes = [
   {
     path: ':profileSlug',
-    component: ProfileComponent,
+    component: ProfilePageComponent,
     resolve: {
       profile: ProfileResolver
     }
