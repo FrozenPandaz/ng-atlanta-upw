@@ -7,9 +7,9 @@ import { Request } from 'express';
 import * as cookie from 'cookie';
 
 @Injectable()
-export class NodeCookiesService {
+export class NodeCookiesService implements CookiesService {
 
-    cookies = {};
+    private cookies = {};
 
     constructor(
         @Inject(REQUEST) private request: Request

@@ -4,9 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isPlatformServer } from '@angular/common';
 import * as firebase from 'firebase/app';
-import { first } from 'rxjs/operators/first';
-import { map } from 'rxjs/operators/map';
-import { tap } from 'rxjs/operators/tap';
 
 import { List } from '../../lander/list/list';
 import { Observable } from 'rxjs/Observable';

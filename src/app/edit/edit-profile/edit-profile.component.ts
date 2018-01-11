@@ -9,11 +9,6 @@ import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
 import { merge } from 'rxjs/observable/merge';
 
-interface Change {
-  key: string;
-  value: any;
-}
-
 @Component({
   selector: 'upw-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -32,8 +27,6 @@ export class EditProfileComponent implements OnInit {
     'FN'
   ];
 
-  isNode: boolean = isPlatformServer(this.platformId);
-
   profile: Observable<Profile>;
 
   private profileDoc: AngularFirestoreDocument<Profile>;
@@ -46,7 +39,7 @@ export class EditProfileComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    if (this.isNode) {
+    if (isPlatformServer(this.platformId)) {
       return;
     }
 
@@ -69,16 +62,6 @@ export class EditProfileComponent implements OnInit {
     this.profileDoc.update({
       id: this.profileDoc.ref.id
     });
-  }
-
-  private getChanges(key: keyof Profile): Observable<Partial<Profile>> {
-    return this.formGroup.controls[key].valueChanges.pipe(
-      map((value: any) => {
-        const partial: Partial<Profile> = {};
-        partial[key] = value;
-        return partial;
-      })
-    );
   }
 
   private async getProfile(): Promise<void> {

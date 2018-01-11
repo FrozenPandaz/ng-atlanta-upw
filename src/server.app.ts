@@ -2,7 +2,6 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 import * as path from 'path';
-import * as fs from 'fs';
 import * as express from 'express';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';

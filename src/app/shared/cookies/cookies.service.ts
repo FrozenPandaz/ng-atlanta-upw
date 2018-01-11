@@ -1,9 +1,5 @@
 export abstract class CookiesService {
-    set(key: string, value: string) {
+  abstract set(key: string, value: string);
 
-    }
-
-    get(key: string): string | undefined {
-        return undefined;
-    }
+  abstract get(key: string): string;
 }
