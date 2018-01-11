@@ -13,3 +13,5 @@
   <label>Image URL: </label><input type="text" formControlName="image"><br>
   <input type="submit">
 </form>
+
+<upw-profile *ngIf="profile | async;let profile;" [profile]="profile"></upw-profile>

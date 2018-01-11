@@ -19,6 +19,9 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
   declarations: [
     ProfileComponent,
     ProfilePageComponent
+  ],
+  exports: [
+    ProfileComponent
   ]
 })
 export class ProfileModule { }

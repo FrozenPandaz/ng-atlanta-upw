@@ -6,13 +6,17 @@ import { EditRoutingModule } from './edit-routing.module';
 import { EditLanderComponent } from './edit-lander/edit-lander.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { ProfileModule } from '../profile/profile.module';
+import { LanderModule } from '../lander/lander.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     EditRoutingModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ProfileModule,
+    LanderModule
   ],
   declarations: [
     EditLanderComponent,

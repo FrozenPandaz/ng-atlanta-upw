@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Profile } from '../../profile/profile/profile';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'upw-edit-profile',
@@ -24,6 +25,8 @@ export class EditProfileComponent implements OnInit {
   ];
 
   isNode: boolean = isPlatformServer(this.platformId);
+
+  profile: Observable<Profile>;
 
   private profileSlug: string;
 
@@ -54,7 +57,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   private async getProfile(profileSlug: string): Promise<void> {
-    const profileRef = await this.firestore.collection('profiles').doc(profileSlug).ref.get();
+    const profileDoc = this.firestore.collection('profiles').doc<Profile>(profileSlug);
+    const profileRef = await profileDoc.ref.get();
 
     if (!profileRef.exists) {
       this.exists = false;
@@ -76,6 +80,8 @@ export class EditProfileComponent implements OnInit {
         bio: new FormControl(profile.bio),
         image: new FormControl(profile.image)
       });
+
+      this.profile = profileDoc.valueChanges();
     }
     this.cdRef.markForCheck();
     this.cdRef.detectChanges();

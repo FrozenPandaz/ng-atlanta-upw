@@ -1,13 +1,17 @@
+:host {
+  display: block;
+  position: relative;
+  padding-top: 40vh;
+}
+
 img {
     width: 100%;
     position: absolute;
     top: 0;
-    z-index: -1;
 }
 
 .main {
     margin: auto;
-    margin-top: 40vh;
     background: rgba(255, 255, 255, .6);
     width: 90%;
     padding: 1em;
