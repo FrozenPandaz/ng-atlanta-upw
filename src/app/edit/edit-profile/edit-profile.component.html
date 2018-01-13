@@ -1,4 +1,4 @@
-<div *ngIf="!exists">
+<div *ngIf="!exists" class="create">
   <h2>This profile does not exist</h2>
   <button (click)="create()">Create the profile now!</button>
 </div>
@@ -12,8 +12,20 @@
   </select><br>
   <label>Bio: </label><input type="text" formControlName="bio"><br>
   <label>Image URL: </label><input type="text" formControlName="image"><br>
+  <label>Powers:</label><br>
+  <div formArrayName="powers">
+    <div *ngFor="let power of powers.controls; let i = index;" [formGroupName]="i">
+      <label>Name:
+        <input formControlName="name">
+      </label>
+      <label>Strength:
+        <input formControlName="strength">
+      </label>
+    </div>
+    <button type="button" (click)="addPower()">Add Power</button>
+  </div>
   <input type="submit" value="Publish">
-  <button (click)="delete()">Delete</button>
+  <button type="button" (click)="delete()">Delete</button>
 </form>
 
 <upw-profile *ngIf="profile | async;let profile;" [profile]="profile"></upw-profile>

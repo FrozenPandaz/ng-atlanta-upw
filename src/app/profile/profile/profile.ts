@@ -1,3 +1,15 @@
+export interface Power {
+  /**
+   * Name of the power
+   */
+  name: string;
+
+  /**
+   * Strength of the power
+   */
+  strength: number;
+}
+
 export interface Profile {
   /**
    * ID of the document in profiles collection
@@ -38,4 +50,9 @@ export interface Profile {
    * Url of image of the profile
    */
   image: string;
+
+  /**
+   * Powers of the profile
+   */
+  powers?: Power[];
 }

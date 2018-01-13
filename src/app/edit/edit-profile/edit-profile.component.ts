@@ -1,13 +1,13 @@
 import { isPlatformServer } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
-import { Profile } from '../../profile/profile/profile';
+import { Power, Profile } from '../../profile/profile/profile';
 
 @Component({
   selector: 'upw-edit-profile',
@@ -18,6 +18,10 @@ import { Profile } from '../../profile/profile/profile';
 export class EditProfileComponent implements OnInit {
 
   public formGroup: FormGroup;
+
+  get powers(): FormArray {
+    return this.formGroup.get('powers') as FormArray;
+  }
 
   public exists = true;
 
@@ -50,11 +54,22 @@ export class EditProfileComponent implements OnInit {
     await this.getProfile();
   }
 
-  publish(event: Event) {
+  async publish(event: Event) {
     event.preventDefault();
 
+    const formData = this.formGroup.value;
+
+    if (formData.powers) {
+      const powersDoc = this.profileDoc.collection('powers');
+      const powersRef = await powersDoc.ref.get();
+      formData.powers.forEach((power, i) => {
+        this.profileDoc.collection('powers').doc(i.toString()).set(power);
+      });
+      delete formData.powers;
+    }
+
     this.profileDoc.update({
-      ...this.formGroup.value,
+      ...formData,
       name: this.getName()
     });
   }
@@ -70,27 +85,39 @@ export class EditProfileComponent implements OnInit {
     await this.profileDoc.delete();
   }
 
+  addPower() {
+    this.powers.push(this.formBuilder.group({
+      name: '',
+      strength: 0
+    }));
+  }
+
   private async getProfile(): Promise<void> {
     const profileRef = await this.profileDoc.ref.get();
+    const powersRef = await this.profileDoc.collection<Power>('powers').ref.get();
     this.exists = profileRef.exists;
     if (this.exists) {
       const profile: Profile = profileRef.data() as Profile;
-      this.formGroup = this.formBuilder.group(this.getProfileFormData(profile));
-      this.profile = merge(
-        this.profileDoc.valueChanges().pipe(
-          tap((value) => {
-            this.formGroup.setValue(this.getProfileFormData(value));
-          })
-        ),
-        this.formGroup.valueChanges.pipe(
-          map(value => {
-            return {
-              ...value,
-              name: this.getName(),
-              id: this.profileDoc.ref.id
-            };
-          })
-        )
+      const form = this.formBuilder.group(this.getProfileFormData(profile));
+      form.setControl('powers', this.formBuilder.array([]));
+      if (!powersRef.empty) {
+        const powers = powersRef.docs.map(doc => {
+          return this.formBuilder.group(doc.data());
+        });
+        form.setControl('powers', this.formBuilder.array(powers));
+      }
+      this.formGroup = form;
+      this.profileDoc.valueChanges().subscribe((value) => {
+        this.formGroup.patchValue(this.getProfileFormData(value));
+      }),
+      this.profile = this.formGroup.valueChanges.pipe(
+        map(value => {
+          return {
+            ...value,
+            name: this.getName(),
+            id: this.profileDoc.ref.id
+          };
+        })
       );
     }
     this.cdRef.markForCheck();
@@ -106,7 +133,13 @@ export class EditProfileComponent implements OnInit {
   }
 
   private getProfileFormData(profile: Profile) {
-    const formData = {
+    const formData: Partial<Profile> = {
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      nameFormat: this.nameFormats[0],
+      bio: '',
+      image: '',
       ...profile
     };
     delete formData.id;

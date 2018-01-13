@@ -4,6 +4,14 @@
   <p *ngIf="list" class="rank">Rank #{{ getRank(list) }}
   <h1>{{ profile.name }}</h1>
   <p>{{ profile.bio }}</p>
+  <div>
+    <h3>Powers</h3>
+    <div *ngFor="let power of profile.powers">
+      <ul>
+        <li>{{ power.name }}</li>
+      </ul>
+    </div>
+  </div>
   <p *ngIf="list">
     <a *ngIf="getMember('previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.profile.id ]">Previous Member</a>
     <a [routerLink]="[ '/', list.id ]">Back to {{ list.name }}</a>
