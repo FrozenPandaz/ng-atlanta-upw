@@ -15,6 +15,11 @@ const routes: Routes = [
     loadChildren: './lander/lander.module#LanderModule'
   },
   {
+    path: 'fpw',
+    pathMatch: 'full',
+    redirectTo: 'fictional-power-women'
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'fictional-power-women'
