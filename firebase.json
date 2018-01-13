@@ -13,6 +13,13 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/fictional-power-women",
+        "type": 302
+      }
+    ],
     "rewrites": [
       {
         "source": "**",

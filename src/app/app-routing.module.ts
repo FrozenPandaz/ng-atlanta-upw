@@ -13,6 +13,11 @@ const routes: Routes = [
   {
     path: ':listName',
     loadChildren: './lander/lander.module#LanderModule'
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'fictional-power-women'
   }
 ];
 

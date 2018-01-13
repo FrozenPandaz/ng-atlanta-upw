@@ -52,7 +52,7 @@ export function getServer(firestore: firebase.firestore.Firestore) {
 
   routes.forEach((route) => {
     server.get(route, (req, res) => {
-      res.setHeader('Cache-Control', `public, s-maxage=${12 * 60 * 60}`);
+      res.setHeader('Cache-Control', `public, s-maxage=${60 * 60}`);
 
       res.render(indexPath, {
         req,
@@ -62,17 +62,21 @@ export function getServer(firestore: firebase.firestore.Firestore) {
   });
 
   server.get('/api/list/:listName', async (req, res) => {
-    res.setHeader('Cache-Control', `public, max-age=${60}, s-maxage=${10 * 60}`);
+    res.setHeader('Cache-Control', `public, max-age=${60 * 60}, s-maxage=${10 * 60}`);
 
     const list = await listController.getList(req.params.listName);
     res.json(list);
   });
 
   server.get('/api/profile/:profileSlug', async (req, res) => {
-    res.setHeader('Cache-Control', `public, max-age=${60}, s-maxage=${10 * 60}`);
+    res.setHeader('Cache-Control', `public, max-age=${60 * 60}, s-maxage=${10 * 60}`);
 
     const profile = await profileController.getProfile(req.params.profileSlug);
     res.json(profile);
+  });
+
+  server.get('/', (req, res) => {
+    res.redirect('/fictional-power-women');
   });
 
   return server;
