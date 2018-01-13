@@ -1,3 +1,5 @@
+import { List } from '../../lander/list/list';
+
 export interface Power {
   /**
    * Name of the power
@@ -8,6 +10,16 @@ export interface Power {
    * Strength of the power
    */
   strength: number;
+}
+
+export interface ListData extends Partial<List> {
+  memberData: MemberData;
+}
+
+export interface MemberData {
+  next?: Profile;
+  previous?: Profile;
+  rank: number;
 }
 
 export interface Profile {
@@ -55,4 +67,9 @@ export interface Profile {
    * Powers of the profile
    */
   powers?: Power[];
+
+  /**
+   * Lists where this profile appears
+   */
+  lists?: ListData[];
 }

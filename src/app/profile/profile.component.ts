@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { List } from '../lander/list/list';
-import { Profile } from './profile/profile';
+import { Router } from '@angular/router';
+import { ListData, Profile } from './profile/profile';
 
 @Component({
   selector: 'upw-profile',
@@ -9,25 +9,34 @@ import { Profile } from './profile/profile';
   styleUrls: ['./profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnChanges {
 
   @Input()
   profile: Profile;
 
   @Input()
-  list: List;
+  listId: string;
 
-  getMember(direction: 'next'|'previous') {
-    const offset = direction === 'next' ? 1 : -1;
-    const rank = this.getIndex();
-    return this.list.members[rank + offset];
+  list: ListData;
+
+  constructor(private router: Router) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.profile) {
+      this.list = changes.profile.currentValue.lists.find(list => list.id === this.listId);
+    }
   }
 
-  getIndex(): number {
-    return this.list.members.findIndex(item => item.profile.id === this.profile.id);
+  getMember(direction: 'next' | 'previous') {
+    return this.list.memberData[direction];
   }
 
   getRank(): number {
-    return this.getIndex() + 1;
+    return this.list.memberData.rank;
+  }
+
+  navigate(direction: 'next' | 'previous') {
+    const member = this.getMember(direction);
+    this.router.navigate(['/profile', member.id]);
   }
 }

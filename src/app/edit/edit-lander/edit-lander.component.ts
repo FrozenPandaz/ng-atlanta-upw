@@ -47,9 +47,12 @@ export class EditLanderComponent implements OnInit {
       alert('Profile already exists');
     } else {
       const members = await this.listRef.collection('members').ref.get();
-      this.listRef.collection('members').add({
+      this.listRef.collection('members').doc(profile.id).set({
         rank: members.size + 1,
         profile: this.firestore.collection('profiles').doc(profile.id).ref
+      });
+      this.firestore.collection('profiles').doc(profile.id).collection('lists').doc(this.listName).set({
+        list: this.listRef.ref
       });
     }
   }
@@ -59,9 +62,13 @@ export class EditLanderComponent implements OnInit {
       .collection<{ profile: firebase.firestore.DocumentReference }>('members').ref
       .where('rank', '>=', member.rank).get();
 
-    membersSnapshot.docs.forEach((doc) => {
+    membersSnapshot.docs.forEach(async (doc) => {
       const data = doc.data();
       if (data.rank === member.rank) {
+        (data.profile as firebase.firestore.DocumentReference)
+          .collection('lists')
+          .doc(this.listName)
+          .delete();
         doc.ref.delete();
       } else {
         doc.ref.update({
@@ -69,7 +76,6 @@ export class EditLanderComponent implements OnInit {
         });
       }
     });
-    membersSnapshot.docs[0].ref.delete();
   }
 
   async shiftMember(member: any, direction: 'up' | 'down') {
