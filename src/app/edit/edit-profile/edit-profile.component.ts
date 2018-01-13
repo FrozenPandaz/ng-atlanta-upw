@@ -1,12 +1,10 @@
 import { isPlatformServer } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
 import { map } from 'rxjs/operators/map';
-import { tap } from 'rxjs/operators/tap';
 import { Power, Profile } from '../../profile/profile/profile';
 
 @Component({
@@ -61,9 +59,8 @@ export class EditProfileComponent implements OnInit {
 
     if (formData.powers) {
       const powersDoc = this.profileDoc.collection('powers');
-      const powersRef = await powersDoc.ref.get();
       formData.powers.forEach((power, i) => {
-        this.profileDoc.collection('powers').doc(i.toString()).set(power);
+        powersDoc.doc(i.toString()).set(power);
       });
       delete formData.powers;
     }
