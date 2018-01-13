@@ -18,6 +18,11 @@
         "source": "/",
         "destination": "/fictional-power-women",
         "type": 302
+      },
+      {
+        "source": "/fpw",
+        "destination": "/fictional-power-women",
+        "type": 301
       }
     ],
     "rewrites": [

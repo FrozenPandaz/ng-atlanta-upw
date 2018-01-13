@@ -75,10 +75,6 @@ export function getServer(firestore: firebase.firestore.Firestore) {
     res.json(profile);
   });
 
-  server.get('/fpw', (req, res) => {
-    res.redirect('/fictional-power-women', 301);
-  });
-
   server.get('/', (req, res) => {
     res.redirect('/fictional-power-women');
   });
