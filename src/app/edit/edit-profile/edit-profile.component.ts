@@ -58,10 +58,11 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  create() {
-    this.profileDoc.update({
+  async create() {
+    await this.profileDoc.set({
       id: this.profileDoc.ref.id
-    });
+    } as Profile);
+    this.getProfile();
   }
 
   private async getProfile(): Promise<void> {
