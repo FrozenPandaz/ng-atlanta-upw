@@ -13,6 +13,7 @@
   <label>Bio: </label><input type="text" formControlName="bio"><br>
   <label>Image URL: </label><input type="text" formControlName="image"><br>
   <input type="submit" value="Publish">
+  <button (click)="delete()">Delete</button>
 </form>
 
 <upw-profile *ngIf="profile | async;let profile;" [profile]="profile"></upw-profile>

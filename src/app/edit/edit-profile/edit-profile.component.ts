@@ -1,6 +1,6 @@
 import { isPlatformServer } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +34,7 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore,
+    private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: string
   ) { }
@@ -65,19 +66,16 @@ export class EditProfileComponent implements OnInit {
     this.getProfile();
   }
 
+  async delete() {
+    await this.profileDoc.delete();
+  }
+
   private async getProfile(): Promise<void> {
     const profileRef = await this.profileDoc.ref.get();
     this.exists = profileRef.exists;
     if (this.exists) {
       const profile: Profile = profileRef.data() as Profile;
-      this.formGroup = new FormGroup({
-        firstName: new FormControl(profile.firstName),
-        middleName: new FormControl(profile.middleName),
-        lastName: new FormControl(profile.lastName),
-        nameFormat: new FormControl(profile.nameFormat),
-        bio: new FormControl(profile.bio),
-        image: new FormControl(profile.image)
-      });
+      this.formGroup = this.formBuilder.group(this.getProfileFormData(profile));
       this.profile = merge(
         this.profileDoc.valueChanges().pipe(
           tap((value) => {
@@ -109,7 +107,6 @@ export class EditProfileComponent implements OnInit {
 
   private getProfileFormData(profile: Profile) {
     const formData = {
-      ...this.formGroup.value,
       ...profile
     };
     delete formData.id;
