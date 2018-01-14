@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run watch",
-    "predeploy": "npm run build:prod",
+    "predeploy": "npm run build:prod && node postprocess.js",
     "deploy": "firebase deploy",
     "build:prod": "concurrently 'npm run build:client:prod' 'npm run build:server:ng' 'npm run build:server:fb' -n client,server:ng,server:ts",
     "build:client:prod": "ng build --prod --build-optimizer --vendor-chunk --sourcemaps --deployUrl https://ng-atlanta-upw.firebaseapp.com/",

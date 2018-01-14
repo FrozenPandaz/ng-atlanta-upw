@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Profile } from '../../profile/profile/profile';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Profile } from '../../profile/profile/profile';
 
 @Injectable()
 export class EditProfileService {
