@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LanderModule } from '../../lander/lander.module';
 import { EditLanderComponent } from './edit-lander.component';
+import { EditLanderService } from './edit-lander.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { EditLanderComponent } from './edit-lander.component';
   ],
   exports: [
     EditLanderComponent
-  ]
+  ],
+  providers: [EditLanderService]
 })
 export class EditLanderModule {}
