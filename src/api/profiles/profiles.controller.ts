@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/app';
+import { Membership } from '../../app/edit/edit-lander/edit-lander.component';
 import { ListData, MemberData, Power, Profile } from '../../app/profile/profile/profile';
 
 export class ProfilesController {
@@ -9,12 +10,12 @@ export class ProfilesController {
     console.time('get profile info');
     const profileDoc = this.firestore.collection('profiles').doc(profileSlug);
     const snapshot = await profileDoc.get();
+    const profile = snapshot.data();
     if (!snapshot.exists) {
       return {};
     }
     console.timeEnd('get profile info');
     console.time('get extra info');
-    const profile: Profile = snapshot.data() as Profile;
     [profile.powers, profile.lists] = await Promise.all([
       this.getPowers(profileDoc),
       this.getLists(profileDoc)
@@ -25,64 +26,39 @@ export class ProfilesController {
   }
 
   private async getLists(profileDoc: firebase.firestore.DocumentReference): Promise<ListData[]> {
-    const listsDoc = profileDoc.collection('lists');
-    const lists = await listsDoc.get();
-    if (lists.empty) {
+    const membershipsSnapshot = await this.firestore.collection('memberships')
+      .where('profileId', '==', profileDoc.id)
+      .get();
+
+    if (membershipsSnapshot.empty) {
       return [];
     }
 
     return Promise.all(
-      lists.docs.map(async doc => {
-        const listRef: firebase.firestore.DocumentReference = doc.data().list;
-        return this.getListInfo(profileDoc.id, listRef);
+      membershipsSnapshot.docs.map(async doc => {
+        const membership: Membership = doc.data() as Membership;
+        const listSnapshot = await membership.list.get();
+        const listData = listSnapshot.data() as ListData;
+        const memberData: MemberData = {
+          rank: membership.rank
+        };
+        [memberData.previous, memberData.next] = await Promise.all([
+          this.getMember(membership, 'prev'),
+          this.getMember(membership, 'next')
+        ]);
+        listData.memberData = memberData;
+        return listData;
       })
     );
   }
 
-  private async getListInfo (
-    profileSlug: string,
-    listRef: firebase.firestore.DocumentReference,
-    getMembers: boolean = true
-  ): Promise<ListData> {
-    console.time('get list info');
-    const listSnapshot = await listRef.get();
-
-    const result = listSnapshot.data() as ListData;
-    console.time('get member from list');
-    const memberSnapshot = await listRef.collection('members')
-      .doc(profileSlug)
-      .get();
-    const memberData = memberSnapshot.data() as MemberData;
-
-    delete (memberData as any).profile;
-    console.timeEnd('get member from list');
-
-    console.time('get next and prev');
-    const relatedMembersSnapshot = await listRef.collection('members')
-      .where('rank', '>=', memberData.rank - 1)
-      .limit(3)
-      .get();
-
-    const relatedMembers = relatedMembersSnapshot.docs
-      .map(memberDoc => memberDoc.data());
-
-    [memberData.previous, memberData.next] = await Promise.all([
-      this.getMember(memberData.rank, 'previous', relatedMembers),
-      this.getMember(memberData.rank, 'next', relatedMembers),
-    ]);
-    console.timeEnd('get next and prev');
-
-    result.memberData = memberData;
-    console.timeEnd('get list info');
-    return result;
-  }
-
-  private async getMember(rank: number, relation: 'next' | 'previous', relatedMembers: any[]): Promise<Profile> {
-    const offset = relation === 'next' ? 1 : -1;
-    const member = relatedMembers.find(relatedMember => relatedMember.rank === rank + offset);
-    if (member) {
-      const memberSnapshot = await member.profile.get();
-      return memberSnapshot.data();
+  private async getMember(membership: Membership, relation: 'prev' | 'next'): Promise<Profile> {
+    const memberRef = membership[relation];
+    if (memberRef) {
+      const memberSnapshot = await memberRef.get();
+      const member = memberSnapshot.data() as Membership;
+      const memberSnap = await member.profile.get();
+      return memberSnap.data() as Profile;
     } else {
       return null;
     }

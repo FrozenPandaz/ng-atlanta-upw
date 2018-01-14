@@ -13,13 +13,20 @@ export class ListsController {
 
     const result = listSnapshot.data();
     result.members = [];
+    const memberships = await this.firestore.collection('memberships')
+      .orderBy('rank')
+      .where('listId', '==', name)
+      .get();
 
-    const membersSnapshot = await listRef.collection('members').orderBy('rank').get();
-    result.members = await Promise.all(membersSnapshot.docs.map(async doc => {
-      const item = doc.data();
-      const profileSnapshot = await this.firestore.collection('profiles').doc(item.profile.id).get();
-      item.profile = profileSnapshot.data();
-      return item;
+    result.members = await Promise.all(memberships.docs.map(async membershipSnapshot => {
+      const membership = membershipSnapshot.data();
+      delete membership.list;
+      delete membership.listId;
+      delete membership.prev;
+      delete membership.next;
+      const profileSnapshot = await membership.profile.get();
+      membership.profile = profileSnapshot.data();
+      return membership;
     }));
 
     return result;
