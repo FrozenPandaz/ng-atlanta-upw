@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileModule } from '../../profile/profile.module';
 import { EditProfileComponent } from './edit-profile.component';
+import { EditProfileService } from './edit-profile.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { EditProfileComponent } from './edit-profile.component';
   ],
   declarations: [
     EditProfileComponent
-  ]
+  ],
+  providers: [EditProfileService]
 })
 export class EditProfileModule { }

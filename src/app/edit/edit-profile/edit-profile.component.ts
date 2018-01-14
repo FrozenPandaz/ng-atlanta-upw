@@ -1,11 +1,15 @@
 import { isPlatformServer } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
+import { Subscription } from 'rxjs/Subscription';
+
 import { Power, Profile } from '../../profile/profile/profile';
+import { EditProfileService } from './edit-profile.service';
 
 @Component({
   selector: 'upw-edit-profile',
@@ -13,11 +17,14 @@ import { Power, Profile } from '../../profile/profile/profile';
   styleUrls: ['./edit-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, OnDestroy {
 
   public formGroup: FormGroup;
 
   get powers(): FormArray {
+    if (!this.formGroup) {
+      return null;
+    }
     return this.formGroup.get('powers') as FormArray;
   }
 
@@ -33,9 +40,12 @@ export class EditProfileComponent implements OnInit {
 
   private profileDoc: AngularFirestoreDocument<Profile>;
 
+  private profileSub: Subscription;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore,
+    private editProfileService: EditProfileService,
     private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: string
@@ -49,33 +59,32 @@ export class EditProfileComponent implements OnInit {
     const profileSlug = this.activatedRoute.snapshot.params.profileSlug;
     this.profileDoc = this.firestore.collection('profiles').doc<Profile>(profileSlug);
 
-    await this.getProfile();
+    const profile = await this.getProfile();
+
+    this.exists = !!profile;
+
+    if (profile) {
+
+      this.formGroup = await this.createForm(profile);
+      this.subscribeForChanges();
+    }
+    this.cdRef.detectChanges();
   }
 
   async publish(event: Event) {
     event.preventDefault();
 
-    const formData = this.formGroup.value;
-
-    if (formData.powers) {
-      const powersDoc = this.profileDoc.collection('powers');
-      formData.powers.forEach((power, i) => {
-        powersDoc.doc(i.toString()).set(power);
-      });
-      delete formData.powers;
-    }
-
-    this.profileDoc.update({
-      ...formData,
-      name: this.getName()
-    });
+    return this.editProfileService.updateProfile(this.profileDoc.ref.id, this.formGroup.value);
   }
 
   async create() {
     await this.profileDoc.set({
       id: this.profileDoc.ref.id
     } as Profile);
-    this.getProfile();
+    this.formGroup = await this.createForm(this.getProfileFormData({}));
+    this.exists = true;
+    this.subscribeForChanges();
+    this.cdRef.detectChanges();
   }
 
   async delete() {
@@ -89,47 +98,53 @@ export class EditProfileComponent implements OnInit {
     }));
   }
 
-  private async getProfile(): Promise<void> {
-    const profileRef = await this.profileDoc.ref.get();
+  private async createForm(profile: Partial<Profile>) {
+    const form = this.formBuilder.group(this.getProfileFormData(profile));
+
+    const powers = await this.getPowers();
+    form.setControl('powers', this.formBuilder.array(
+      powers.map((power: Power) => this.formBuilder.group(power))
+    ));
+
+    return form;
+  }
+
+  private async getPowers(): Promise<Power[]> {
     const powersRef = await this.profileDoc.collection<Power>('powers').ref.get();
-    this.exists = profileRef.exists;
-    if (this.exists) {
-      const profile: Profile = profileRef.data() as Profile;
-      const form = this.formBuilder.group(this.getProfileFormData(profile));
-      form.setControl('powers', this.formBuilder.array([]));
-      if (!powersRef.empty) {
-        const powers = powersRef.docs.map(doc => {
-          return this.formBuilder.group(doc.data());
-        });
-        form.setControl('powers', this.formBuilder.array(powers));
-      }
-      this.formGroup = form;
-      this.profileDoc.valueChanges().subscribe((value) => {
-        this.formGroup.patchValue(this.getProfileFormData(value));
-      }),
-      this.profile = this.formGroup.valueChanges.pipe(
-        map(value => {
-          return {
-            ...value,
-            name: this.getName(),
-            id: this.profileDoc.ref.id
-          };
-        })
-      );
+    if (powersRef.empty) {
+      return [];
     }
-    this.cdRef.markForCheck();
-    this.cdRef.detectChanges();
+    return powersRef.docs
+      .map<Power>(doc => doc.data() as Power);
   }
 
-  private getName() {
-    const formData = this.formGroup.value;
-    return formData.nameFormat
-      .replace('FN', formData.firstName)
-      .replace('MN', formData.middleName)
-      .replace('LN', formData.lastName);
+  private subscribeForChanges() {
+    this.profileSub = this.profileDoc.valueChanges().subscribe((value) => {
+      this.formGroup.patchValue(this.getProfileFormData(value));
+    });
+    this.profile = this.formGroup.valueChanges.pipe(
+      map(value => {
+        if (value.powers.length < 1) {
+          delete value.powers;
+        }
+        return {
+          ...value,
+          name: this.editProfileService.getName(value),
+          id: this.profileDoc.ref.id
+        };
+      })
+    );
   }
 
-  private getProfileFormData(profile: Profile) {
+  private async getProfile(): Promise<Profile | null> {
+    const profileRef = await this.profileDoc.ref.get();
+    if (!profileRef.exists) {
+      return null;
+    }
+    return profileRef.data() as Profile;
+  }
+
+  private getProfileFormData(profile: Partial<Profile>) {
     const formData: Partial<Profile> = {
       firstName: '',
       middleName: '',
@@ -142,6 +157,12 @@ export class EditProfileComponent implements OnInit {
     delete formData.id;
     delete formData.name;
     return formData;
+  }
+
+  ngOnDestroy() {
+    if (this.profileSub) {
+      this.profileSub.unsubscribe();
+    }
   }
 
 }
