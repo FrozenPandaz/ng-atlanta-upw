@@ -23,7 +23,13 @@ export class ProfileComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.profile) {
-      this.list = changes.profile.currentValue.lists.find(list => list.id === this.listId);
+      const profileLists = changes.profile.currentValue.lists;
+      if (profileLists) {
+        const currentList = profileLists.find(list => list.id === this.listId);
+        this.list = currentList || null;
+      } else {
+        this.list = null;
+      }
     }
   }
 
