@@ -27,6 +27,10 @@
     ],
     "rewrites": [
       {
+        "source": "/images/**",
+        "function": "images"
+      },
+      {
         "source": "**",
         "function": "server"
       }
