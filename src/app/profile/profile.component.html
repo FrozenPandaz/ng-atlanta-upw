@@ -1,26 +1,34 @@
 <img [src]="profile.image">
+
 <div class="main">
 
   <header>
     <p *ngIf="list" class="rank">Rank #{{ getRank(list) }}
     <h1>{{ profile.name }}</h1>
-    <p>{{ profile.bio }}</p>
   </header>
-  <section>
-    <div *ngIf="profile.powers" class="info">
+
+  <section class="bio">
+    <h3>Bio</h3>
+    <p>{{ profile.bio }}</p>    
+  </section>
+
+  <section class="info">
+    <div *ngIf="profile.powers" class="powers">
       <h3>Powers</h3>
       <ul>
         <li *ngFor="let power of profile.powers">{{ power.name }}</li>
       </ul>
     </div>
   </section>
+
   <nav *ngIf="list">
     <a *ngIf="getMember('previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.id ]">
-      Previous Member
+      Previous
     </a>
     <a [routerLink]="[ '/', listId ]">Back to {{ list.name }}</a>
     <a *ngIf="getMember('next'); let nextMember;" [routerLink]="[ '/profile', nextMember.id ]">
-      Next Member
+      Next
     </a>
   </nav>
+
 </div>
