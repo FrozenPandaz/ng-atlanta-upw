@@ -7,7 +7,7 @@ header {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: #333333;
+        background-color: #9C27B0;
         color: white;
         display: flex;
         align-items: center;
@@ -20,11 +20,13 @@ ol {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 li {
     position: relative;
     width: 20%;
+    margin: 4px;
 
     :after {
       content: '';
@@ -42,6 +44,7 @@ li {
         padding: 0 2.5%;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     &:hover img {
@@ -71,19 +74,7 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 1000px) {
-  li {
-    width: 25%;
-  }
-}
-
-@media (max-width: 800px) {
-  li {
-    width: 33.33%;
-  }
-}
-
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   header {
     padding-bottom: 40%;
   }
