@@ -1,19 +1,12 @@
 :host {
   display: flex;
-  width: 90%;
-  max-width: 1400px;
-  height: 400px;
-  margin: 1em auto;
 }
 
-img {
-  margin-right: 1.5em;
-  width: 60%;
-  max-width: 700px;
+.profile-image {
+  align-self: flex-start;
 }
 
 .main {
-  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,20 +22,13 @@ img {
 
 .rank {
   width: 4em;
+  min-width: 4em;
   height: 4em;
   line-height: 4em;
-  font-size: 20px;
   border-radius: 50%;
   background-color: #FDD835;
   text-align: center;
-}
-
-.bio, .info {
-  font-size: 1em;
-
-  h3 {
-    font-size: 1.5em;
-  }
+  font-weight: bold;
 }
 
 .bio p, .info ul {
@@ -54,17 +40,36 @@ nav {
   justify-content: space-between;
 }
 
-@media (max-width: 767px) {
+@media (min-width: 769px) {
+  :host {
+    width: 90%;
+    max-width: 1400px;
+    margin: 1em auto;
+  }
+
+  .profile-image {
+    margin-right: 1.5em;
+    width: 60%;
+  } 
+
+  .main {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
   :host {
     flex-direction: column;
     height: 100%;
+    width: 100%;
   }
 
-  img, .main {
-    margin: auto;
+  .profile-image {
+    width: 100%;
   }
 
-  img {
+  .main {
     width: 80%;
+    margin: 1em auto;
   }
 }

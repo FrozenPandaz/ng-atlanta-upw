@@ -1,9 +1,9 @@
-<img [src]="profile.image">
+<img class="profile-image" [src]="profile.image">
 
 <div class="main">
 
   <header>
-    <p *ngIf="list" class="rank">Rank #{{ getRank(list) }}
+    <p *ngIf="list" class="rank">{{ getRank(list) }}</p>
     <h1>{{ profile.name }}</h1>
   </header>
 
@@ -23,11 +23,11 @@
 
   <nav *ngIf="list">
     <a *ngIf="getMember('previous'); let prevMember;" [routerLink]="[ '/profile', prevMember.id ]">
-      Previous
+      <img src="/assets/ic_arrow_back_black_24px.svg">
     </a>
     <a [routerLink]="[ '/', listId ]">Back to {{ list.name }}</a>
     <a *ngIf="getMember('next'); let nextMember;" [routerLink]="[ '/profile', nextMember.id ]">
-      Next
+      <img src="/assets/ic_arrow_forward_black_24px.svg">
     </a>
   </nav>
 
