@@ -11,7 +11,8 @@
     <option *ngFor="let format of nameFormats" [value]="format">{{ format }}</option>
   </select><br>
   <label>Bio: </label><input type="text" formControlName="bio"><br>
-  <label>Image URL: </label><input type="text" formControlName="image"><br>
+  <label>Image URL: </label><input type="text" formControlName="image">
+  <button (click)="uploadImage()">Upload</button><br>
   <label>Powers:</label><br>
   <div formArrayName="powers">
     <div *ngFor="let power of powers.controls; let i = index;" [formGroupName]="i">
