@@ -65,7 +65,6 @@ export class ProfilesController {
   }
 
   private async getPowers(profileDoc: firebase.firestore.DocumentReference): Promise<Power[]> {
-    console.log('getting powers');
     console.time('get powers');
     const powersDoc = profileDoc.collection('powers');
     const powers = await powersDoc.get();
