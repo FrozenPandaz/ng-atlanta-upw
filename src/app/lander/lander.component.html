@@ -11,10 +11,12 @@
         <!-- <div class="member" [ngStyle]="{
           'background-image': 'url(' + member.profile.image + ')'
         }"> -->
-        <div class="member">
           <img [src]="member.profile.image">
+        <div  class="info">
+          <p>
+            {{ member.rank }} {{ member.profile.name }}  
+          </p>
         </div>
-        <p>{{ member.rank }}. {{ member.profile.name }}</p>
       </a>
     </li>
   </ol>
