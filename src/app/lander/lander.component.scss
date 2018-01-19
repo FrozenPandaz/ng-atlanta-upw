@@ -1,80 +1,66 @@
 header {
-    width: 100%;
-    padding-bottom: 20%;
-    position: relative;
+  width: 100%;
+  padding-bottom: 20%;
+  position: relative;
 
-    div {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: #9C27B0;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #6A0080;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 
 ol {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 li {
-    position: relative;
-    width: 20%;
-    margin: 4px;
+  position: relative;
+  width: 30%;
+  margin: 4px;
+  overflow: hidden;
 
-    :after {
-      content: '';
-      padding-bottom: 100%;
-      display: block;
-    }
-
-    p {
-        position: absolute;
-        bottom: 0;
-        background: rgba(0, 0, 0, .75);
-        color: white;
-        width: 95%;
-        height: 20%;
-        padding: 0 2.5%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    &:hover img {
-        transform: scale(1.1);
-    }
-}
-
-.member {
-    position: absolute;
-    display: flex;
-    height: 100%;
+  img {
     width: 100%;
-    background-position: center;
+    height: 100%;
+    object-fit: cover;
     background-size: cover;
+    will-change: transform;
+    transition: transform 500ms;
+  }
+
+  .info {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, .75);
+    color: white;
+    width: 95%;
+    height: 20%;
+    padding: 0 2.5%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+  }
 
-    img {
-        height: 100%;
-        will-change: transform;
-        transition: transform 500ms;
-    }
+  &:hover img {
+      transform: scale(1.1);
+  }
 }
 
 h1 {
   text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   header {
     padding-bottom: 40%;
   }
@@ -85,10 +71,5 @@ h1 {
     :after {
       padding-bottom: 40%;
     }
-  }
-
-  .member img {
-    width: 100%;
-    height: auto;
   }
 }
