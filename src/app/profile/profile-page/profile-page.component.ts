@@ -82,28 +82,4 @@ export class ProfilePageComponent implements OnInit {
       content: profile.id
     });
   }
-
-  public mouseDown(event: MouseEvent) {
-    const initialX = event.pageX;
-    const nativeElement: HTMLElement = this.profilePage.nativeElement;
-    let diff = 0;
-    nativeElement.style['will-change'] = 'translate';
-    fromEvent(nativeElement, 'mousemove').pipe(
-      takeUntil(fromEvent(nativeElement, 'mouseup')),
-      map((e: MouseEvent) => e.pageX),
-      map(newX => newX - initialX),
-    )
-      .subscribe(diffX => {
-        diff = diffX;
-        nativeElement.style.transform = `translateX(${diffX}px)`;
-        nativeElement.style.transition = `translate 20ms`;
-      }, null, () => {
-        nativeElement.style.transform = '';
-        if (Math.abs(diff) > 100) {
-          requestAnimationFrame(() => {
-            this.profileComponent.navigate(diff < 0 ? 'next' : 'previous');
-          });
-        }
-    });
-  }
 }
