@@ -21,3 +21,13 @@ header {
   max-width: 1600px;
   box-sizing: border-box;
 }
+
+span {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  height: 2em;
+  margin-right: 1em;
+}
