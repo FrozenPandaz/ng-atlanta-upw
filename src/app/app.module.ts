@@ -17,6 +17,7 @@ import { ClientCookiesModule } from './shared/cookies/client.cookies.module';
 import { BaseInterceptor } from './shared/interceptors/base.interceptor';
 import { CacheInterceptor } from './shared/interceptors/cache.interceptor';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
+import { MetaModule } from './shared/meta/meta.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
     HttpClientModule,
     ClientCookiesModule,
     HeaderModule,
+    MetaModule,
     FirebaseModule
   ],
   providers: [

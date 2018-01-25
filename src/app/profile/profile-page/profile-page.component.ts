@@ -7,6 +7,8 @@ import { pluck } from 'rxjs/operators/pluck';
 import { tap } from 'rxjs/operators/tap';
 
 import { CookiesService } from '../../shared/cookies/cookies.service';
+import { OpenGraphService } from '../../shared/meta/open-graph/open-graph.service';
+import { TwitterCardService } from '../../shared/meta/twitter-card/twitter-card.service';
 import { ProfileComponent } from '../profile.component';
 import { Profile } from '../profile/profile';
 
@@ -40,6 +42,8 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private cookiesService: CookiesService,
+    private openGraphService: OpenGraphService,
+    private twitterCardService: TwitterCardService,
     private title: Title,
     private meta: Meta
   ) { }
@@ -51,32 +55,22 @@ export class ProfilePageComponent implements OnInit {
   private setMeta(profile: Profile) {
     this.title.setTitle(profile.name);
     this.meta.updateTag({
-      property: 'og:title',
-      content: profile.name
-    });
-    this.meta.updateTag({
       name: 'description',
       content: profile.bio
     });
-    this.meta.updateTag({
-      property: 'og:description',
-      content: profile.bio
+    this.twitterCardService.updateMeta({
+      card: 'summary_large_image',
+      title: profile.name,
+      image: profile.image,
+      description: profile.bio
     });
-    this.meta.updateTag({
-      property: 'og:image',
-      content: profile.image
-    });
-    this.meta.updateTag({
-      property: 'og:url',
-      content: `https://ng-atlanta-upw.firebaseapp.com/profile/${profile.id}`
-    });
-    this.meta.updateTag({
-      property: 'og:type',
-      content: `profile`
-    });
-    this.meta.updateTag({
-      property: 'profile:username',
-      content: profile.id
+    this.openGraphService.updateMeta({
+      type: 'profile',
+      title: profile.name,
+      url: `https://ng-atlanta-upw.firebaseapp.com/profile/${profile.id}`,
+      description: profile.bio,
+      image: profile.image,
+      username: profile.id
     });
   }
 }
