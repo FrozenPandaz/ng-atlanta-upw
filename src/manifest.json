@@ -6,15 +6,15 @@
   "display": "fullscreen",
   "start_url": "https://ng-atlanta-upw.firebaseapp.com/fictional-power-women",
   "short_name": "Most Powerful Fictional Women",
-  "theme_color": "#333333",
+  "theme_color": "#3A0053",
   "description": "Most Powerful Fictional Women",
   "orientation": "any",
-  "background_color": "#333333",
+  "background_color": "#3A0053",
   "related_applications": [],
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/app-icon.ico",
       "sizes": "16x16 32x32"
     },
     {

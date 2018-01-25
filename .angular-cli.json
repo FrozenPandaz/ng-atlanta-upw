@@ -9,7 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
+        "app-icon.ico",
         "app-icon.png",
         "manifest.json"
       ],
