@@ -3,10 +3,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { map } from 'rxjs/operators/map';
 import { pluck } from 'rxjs/operators/pluck';
-import { takeUntil } from 'rxjs/operators/takeUntil';
 import { tap } from 'rxjs/operators/tap';
 
 import { CookiesService } from '../../shared/cookies/cookies.service';
