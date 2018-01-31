@@ -2,6 +2,8 @@ import { isPlatformServer } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+import { FirebaseApp } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs/Observable';
@@ -47,6 +49,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private firestore: AngularFirestore,
     private editProfileService: EditProfileService,
     private formBuilder: FormBuilder,
+    private firebaseApp: FirebaseApp,
     private cdRef: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: string
   ) { }
@@ -96,6 +99,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       name: '',
       strength: 0
     }));
+  }
+
+  async uploadImage() {
+    const response: Response = await fetch(this.formGroup.get('image').value);
+    const blob = await response.blob();
+    const task = this.firebaseApp.storage()
+      .ref().child(`images/profiles/${this.profileDoc.ref.id}/image.png`).put(blob);
+    await task;
   }
 
   private async createForm(profile: Partial<Profile>) {
