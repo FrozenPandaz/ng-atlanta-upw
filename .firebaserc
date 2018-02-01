@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ng-atlanta-upw"
+    "default": "ng-atlanta-upw",
+    "staging": "atl-upw"
   }
 }

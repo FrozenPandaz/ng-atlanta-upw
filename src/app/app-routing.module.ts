@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
-    path: 'edit',
-    loadChildren: './edit/edit.module#EditModule'
-  },
-  {
     path: ':listName',
     loadChildren: './lander/lander.module#LanderModule'
   },

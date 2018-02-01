@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+import { ServerModule } from '@angular/platform-server';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 import { environment } from '../environments/environment.server';
@@ -13,7 +13,6 @@ import { NodeCookiesModule } from './shared/cookies/node.cookies.module';
     AppModule,
     ServerModule,
     ModuleMapLoaderModule,
-    ServerTransferStateModule,
     NodeCookiesModule
   ],
   providers: [

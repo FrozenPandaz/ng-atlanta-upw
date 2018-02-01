@@ -25,6 +25,7 @@ export class CacheInterceptor implements HttpInterceptor {
       return next.handle(req).pipe(
         tap(event => {
           if (event instanceof HttpResponse) {
+            console.log(event.body);
             this.transferState.set(key, event.body);
           }
         })

@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app';
-import { Membership } from '../../app/edit/edit-lander/edit-lander.component';
 import { ListData, MemberData, Power, Profile } from '../../app/profile/profile/profile';
-
+type Membership = any;
 export class ProfilesController {
 
   constructor(private firestore: firebase.firestore.Firestore) {}

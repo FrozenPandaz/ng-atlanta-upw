@@ -22,17 +22,3 @@ server.listen(4300, (err) => {
 });
 
 exports.server = functions.https.onRequest(server);
-
-exports.accountCreation = functions.auth.user().onCreate(event => {
-  const user = event.data;
-
-  firestore.collection('users').doc(user.uid).set({
-    role: 'member'
-  });
-});
-
-exports.accountDeletion = functions.auth.user().onDelete(event => {
-  const user = event.data;
-
-  firestore.collection('users').doc(user.uid).delete();
-});

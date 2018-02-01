@@ -5,6 +5,8 @@ export class ListsController {
   constructor(private firestore: firebase.firestore.Firestore) {}
 
   async getList(name: string): Promise<any> {
+
+    console.log(name);
     const listRef = this.firestore.collection('lists').doc(name);
     const listSnapshot = await listRef.get();
     if (!listSnapshot.exists) {
@@ -12,6 +14,7 @@ export class ListsController {
     }
 
     const result = listSnapshot.data();
+    console.log('result', result);
     result.members = [];
     const memberships = await this.firestore.collection('memberships')
       .orderBy('rank')
@@ -28,6 +31,8 @@ export class ListsController {
       membership.profile = profileSnapshot.data();
       return membership;
     }));
+
+    console.log(result);
 
     return result;
   }
