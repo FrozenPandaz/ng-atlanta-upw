@@ -5,22 +5,17 @@ import * as express from 'express';
 import * as expressWinston from 'express-winston';
 import * as path from 'path';
 import * as winston from 'winston';
-import { ListsController } from './api/lists/lists.controller';
-import { ProfilesController } from './api/profiles/profiles.controller';
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../dist-server/main.bundle');
 
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
+import * as fs from 'fs';
 
-export function getServer(firestore: firebase.firestore.Firestore) {
+export function getServer() {
   const server = express();
-
-  const listController = new ListsController(firestore);
-  const profileController = new ProfilesController(firestore);
 
   const root = path.resolve(__dirname, '..');
   const distPath = path.resolve(root, 'dist');
   const indexPath = path.resolve(distPath, 'index.html');
+  const document = fs.readFileSync(indexPath).toString();
 
   server.use(expressWinston.logger({
     transports: [
@@ -53,6 +48,11 @@ export function getServer(firestore: firebase.firestore.Firestore) {
   routes.forEach((route) => {
     server.get(route, (req, res) => {
       res.setHeader('Cache-Control', `public, s-maxage=${60 * 60}`);
+
+      if (req.query.dynamic === 'true') {
+        res.send(document);
+        return;
+      }
 
       res.render(indexPath, {
         req,
@@ -354,13 +354,6 @@ export function getServer(firestore: firebase.firestore.Firestore) {
           }
         ]
       });
-  });
-
-  server.get('/api/profile/:profileSlug', async (req, res) => {
-    res.setHeader('Cache-Control', `public, max-age=${60 * 60}, s-maxage=${10 * 60}`);
-
-    const profile = await profileController.getProfile(req.params.profileSlug);
-    res.json(profile);
   });
 
   server.get('/', (req, res) => {

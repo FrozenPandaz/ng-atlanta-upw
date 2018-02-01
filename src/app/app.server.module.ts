@@ -6,14 +6,12 @@ import { environment } from '../environments/environment.server';
 import { ENVIRONMENT } from '../environments/environment.token';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
-import { NodeCookiesModule } from './shared/cookies/node.cookies.module';
 
 @NgModule({
   imports: [
     AppModule,
     ServerModule,
-    ModuleMapLoaderModule,
-    NodeCookiesModule
+    ModuleMapLoaderModule
   ],
   providers: [
     {

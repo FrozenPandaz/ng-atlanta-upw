@@ -1,9 +1,7 @@
 import 'zone.js/dist/zone-node';
 
-import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import 'firebase/firestore';
 
 import { enableProdMode } from '@angular/core';
 
@@ -11,10 +9,7 @@ import { getServer } from './server.app';
 
 enableProdMode();
 
-admin.initializeApp(functions.config().firebase);
-const firestore = admin.firestore();
-
-const server = getServer(firestore as any);
+const server = getServer();
 
 server.listen(4300, (err) => {
   // tslint:disable-next-line:no-console

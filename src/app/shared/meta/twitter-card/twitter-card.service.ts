@@ -5,7 +5,10 @@ import { TwitterCardMeta } from './twitter-card-meta';
 @Injectable()
 export class TwitterCardService {
 
-  constructor(private meta: Meta) { }
+  constructor(private meta: Meta) {
+
+    console.log('twitter hi');
+  }
 
   updateMeta(meta: TwitterCardMeta) {
     this.meta.updateTag({

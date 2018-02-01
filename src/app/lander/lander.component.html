@@ -1,23 +1,151 @@
-<div *ngIf="list | async; let list">
-  <header>
-    <div>
-      <h1>{{ list.name }}</h1>
-      <p>{{ list.description }}</p>
-    </div>
-  </header>
-  <ol>
-    <li *ngFor="let member of list.members">
-      <a [routerLink]="['/profile', member.profile.id]">
-        <!-- <div class="member" [ngStyle]="{
-          'background-image': 'url(' + member.profile.image + ')'
-        }"> -->
-          <img [src]="member.profile.image">
-        <div  class="info">
-          <p>
-            {{ member.rank }} {{ member.profile.name }}  
-          </p>
-        </div>
-      </a>
-    </li>
-  </ol>
-</div>
+<div _ngcontent-c2="">
+    <header _ngcontent-c2="">
+      <div _ngcontent-c2="">
+        <h1 _ngcontent-c2="">Fictional Power Women</h1>
+        <p _ngcontent-c2="">The most powerful women from fiction</p>
+      </div>
+    </header>
+    <!----><ol _ngcontent-c2="">
+      <!----><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://img.cinemablend.com/filter:scale/quill/1/6/0/d/2/f/160d2fecd5a21712d1336b6f11734abbfa9ed556.jpg?mw=600">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              1 Jean Grey
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsSd--3cB1yBaRvapV7MyGIKQPVzwWFFdx941WMPJOo5cw3jE5fw">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              2 Hela
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://tibs3.threeifbyspace.net/wp-content/uploads/2015/10/Supergirl.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              3 Supergirl
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://cdn.vox-cdn.com/thumbor/FlVDTKsRqF84r4TI2w0N2z4Xnqc=/0x0:846x346/1200x800/filters:focal(365x46:499x180)/cdn.vox-cdn.com/uploads/chorus_image/image/55091987/Screenshot_2016-11-03_12.07.41.0.0.png">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              4 Wonder Woman
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://images2.alphacoders.com/545/545175.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              5 Storm
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://thegeekiverse.com/wp-content/uploads/2017/10/rey-tlj.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              6 Rey
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://static0.srcdn.com/wp-content/uploads/2016/12/Agents-of-SHIELD-Midseason-Finale-Daisy-Johnson.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              7 Quake
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://lovelace-media.imgix.net/uploads/1022/f41a2ef0-e59e-0133-241a-0e1b1c96d76b.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              8 Minerva McGonagall
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://jackflacco.files.wordpress.com/2013/11/jennifer-lawrence-as-katniss-everdeen-in-the-hunger-games.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              9 Katniss Everdeen
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://ewedit.files.wordpress.com/2017/07/eleven1.jpg?crop=0px%2C34px%2C2700px%2C1419px&amp;resize=1200%2C630">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              10 Eleven
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://images.moviepilot.com/images/c_fill,h_270,w_499/t_mp_quality_gif/v8ymneshtr1nuflts3jk/buffy-the-vampire-slayer-premiered-19-years-ago-here-are-15-buffy-summers-quotes-to-liv-883624.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              11 Buffy Anne Summers
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://img.maximummedia.ie/joe_co_uk/eyJkYXRhIjoie1widXJsXCI6XCJodHRwOlxcXC9cXFwvbWVkaWEtam9lY291ay5tYXhpbXVtbWVkaWEuaWUuczMuYW1hem9uYXdzLmNvbVxcXC93cC1jb250ZW50XFxcL3VwbG9hZHNcXFwvMjAxN1xcXC8wN1xcXC8zMDE4Mzg0N1xcXC9DZXJzZWkuanBnXCIsXCJ3aWR0aFwiOjY0NyxcImhlaWdodFwiOjM0MCxcImRlZmF1bHRcIjpcImh0dHBzOlxcXC9cXFwvd3d3LmpvZS5jby51a1xcXC9hc3NldHNcXFwvaW1hZ2VzXFxcL2pvZWNvdWtcXFwvbm8taW1hZ2UucG5nP3Y9NFwifSIsImhhc2giOiI2NzRmYzIzM2ZkNjBjYzU0ZGNiZmY2NThlNTI4NDM2YzA0NjVkY2I5In0=/cersei.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              12 Cersei Lannister
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://www.hbo.com/content/dam/hbodata/series/game-of-thrones/character/s5/daenarys-1920.jpg/_jcr_content/renditions/cq5dam.web.1200.675.jpeg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              13 Daenerys Targaryen
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/12/17/12/felicity-jones-jyn-erso.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              14 Jyn Erso
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://static0.srcdn.com/wp-content/uploads/Mystique-Days-of-Future-Past-Jennifer-Lawrence.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              15 Mystique
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://nypdecider.files.wordpress.com/2017/07/claire-underwood-house-of-cards.png">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              16 Claire Underwood
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://typeset-beta.imgix.net/uploads/image/2017/10/25/1039cefd-2451-446a-952b-f06e4a31a3aa-o-olivia-pope-facebook.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              17 Olivia Pope
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://lumiere-a.akamaihd.net/v1/images/rose-tico-db-tlj_a70bef86.jpeg?region=0%2C16%2C1280%2C640">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              18 Rose Tico
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/cnxl2hc0jivfsrmh6clx/general-leia-organa-in-the-force-awakens-credit-lucasfilm.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              19 Leia Organa
+            </p>
+          </div>
+      </li><li _ngcontent-c2="">
+            <img _ngcontent-c2="" src="https://wallpapersite.com/images/wallpapers/harry-potter-3840x2160-deathly-hallows-part-2-hermione-emma-watson-152.jpg">
+          <div _ngcontent-c2="" class="info">
+            <p _ngcontent-c2="">
+              20 Hermoine Granger
+            </p>
+          </div>
+      </li>
+    </ol>
+  </div>

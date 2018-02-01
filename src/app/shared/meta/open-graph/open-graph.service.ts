@@ -7,7 +7,9 @@ export class OpenGraphService {
 
   constructor(
     private meta: Meta
-  ) { }
+  ) {
+    console.log('meta hi');
+  }
 
   updateMeta(meta: OpenGraphMeta) {
     this.meta.updateTag({

@@ -10,10 +10,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { environment } from './environments/environment';
 
-firebase.initializeApp(environment.firebaseConfig);
-const firestore = firebase.firestore();
-
-const server = getServer(firestore);
+const server = getServer();
 
 server.listen(4300, (err) => {
   // tslint:disable-next-line:no-console
