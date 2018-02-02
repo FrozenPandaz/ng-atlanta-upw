@@ -7,20 +7,16 @@ export class ProfilesController {
   constructor(private firestore: firebase.firestore.Firestore) {}
 
   async getProfile(profileSlug: string): Promise<any> {
-    console.time('get profile info');
     const profileDoc = this.firestore.collection('profiles').doc(profileSlug);
     const snapshot = await profileDoc.get();
     const profile = snapshot.data();
     if (!snapshot.exists) {
       return {};
     }
-    console.timeEnd('get profile info');
-    console.time('get extra info');
     [profile.powers, profile.lists] = await Promise.all([
       this.getPowers(profileDoc),
       this.getLists(profileDoc)
     ]);
-    console.timeEnd('get extra info');
 
     return profile;
   }
@@ -65,11 +61,9 @@ export class ProfilesController {
   }
 
   private async getPowers(profileDoc: firebase.firestore.DocumentReference): Promise<Power[]> {
-    console.time('get powers');
     const powersDoc = profileDoc.collection('powers');
     const powers = await powersDoc.get();
     if (!powers.empty) {
-      console.timeEnd('get powers');
       return powers.docs.map(doc => doc.data() as Power);
     }
   }
