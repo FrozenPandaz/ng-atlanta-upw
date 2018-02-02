@@ -5,10 +5,12 @@
   "main": "./server-exec/firebase.js",
   "scripts": {
     "ng": "ng",
-    "start": "npm run watch",
+    "start": "npm run build && npm run server",
     "predeploy": "npm run build:prod",
     "deploy": "firebase deploy",
+    "build": "concurrently 'npm run build:client' 'npm run build:server:ng' 'npm run build:server:ts' -n client,server:ng,server:ts",
     "build:prod": "concurrently 'npm run build:client:prod' 'npm run build:server:ng' 'npm run build:server:fb' -n client,server:ng,server:ts",
+    "build:client": "ng build",
     "build:client:prod": "ng build --prod --build-optimizer --vendor-chunk --sourcemaps --deployUrl https://ng-atlanta-upw.firebaseapp.com/",
     "postbuild:client:prod": "ngsw-config dist src/ngsw-config.json",
     "build:server:ng": "ng build --app server --aot",

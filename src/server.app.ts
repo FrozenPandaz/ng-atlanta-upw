@@ -54,6 +54,9 @@ export function getServer(firestore: firebase.firestore.Firestore) {
     server.get(route, (req, res) => {
       res.setHeader('Cache-Control', `public, s-maxage=${60 * 60}`);
 
+      // tslint:disable-next-line:no-console
+      console.log('SERVER SIDE RENDERING', req.originalUrl);
+
       res.render(indexPath, {
         req,
         res
